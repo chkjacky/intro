@@ -43,13 +43,13 @@ export default function ThemeSwitch({ isMediumAndLarger }: ThemeSwitchProps) {
 
         <DropdownMenuItem
           onClick={() => setTheme("light")}
-          className="block justify-center hover:cursor-pointer md:hidden"
+          className="justify-center hover:cursor-pointer md:hidden"
         >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
-          className="block justify-center hover:cursor-pointer md:hidden"
+          className="justify-center hover:cursor-pointer md:hidden"
         >
           Dark
         </DropdownMenuItem>
