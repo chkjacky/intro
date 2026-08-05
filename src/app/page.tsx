@@ -171,12 +171,12 @@ export default function Home() {
                 passHref
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-1/2 underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline md:w-2/3 lg:w-3/4 dark:hover:text-blue-500"
+                className="w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
               >
-                <span className="hidden md:block">
+                <span className="hidden sm:block">
                   Product Management Cert 1
                 </span>
-                <span className="block md:hidden">PM Cert 1</span>
+                <span className="sm:hidden">PM Cert (1)</span>
               </Link>
             </div>
 
@@ -196,12 +196,12 @@ export default function Home() {
                 passHref
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-1/2 underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline md:w-2/3 lg:w-3/4 dark:hover:text-blue-500"
+                className="w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
               >
-                <span className="hidden md:block">
+                <span className="hidden sm:block">
                   Product Management Cert 2
                 </span>
-                <span className="block md:hidden">PM Cert 2</span>
+                <span className="sm:hidden">PM Cert (2)</span>
               </Link>
             </div>
           </div>
