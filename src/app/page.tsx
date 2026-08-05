@@ -3,7 +3,7 @@
 import ThemeSwitch from "@/components/ThemeSwitch";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { CircleArrowDown, MoveDown, MoveUp } from "lucide-react";
+import { MoveDown, MoveUp, Star } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -154,13 +154,13 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="hover:bg-input/30 flex w-full flex-col gap-y-2 lg:flex-row lg:gap-x-3">
-            <div className="flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px lg:h-16 lg:w-1/2">
+          <div className="flex w-full flex-col gap-y-2 lg:flex-row lg:gap-x-3">
+            <div className="hover:bg-input/30 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px lg:h-16 lg:w-1/2">
               <svg
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="bg-background fill-foreground h-6 w-6"
+                className="fill-foreground h-6 w-6 bg-transparent"
               >
                 <title>Udemy</title>
                 <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
@@ -180,12 +180,12 @@ export default function Home() {
               </Link>
             </div>
 
-            <div className="flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px lg:h-16 lg:w-1/2">
+            <div className="hover:bg-input/30 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px lg:h-16 lg:w-1/2">
               <svg
                 role="img"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="bg-background fill-foreground h-6 w-6"
+                className="fill-foreground h-6 w-6 bg-transparent"
               >
                 <title>Udemy</title>
                 <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
@@ -221,11 +221,11 @@ export default function Home() {
             <MoveDown className="h-5 w-5 text-white" />
           </Button>
 
-          <span className="text-foreground/80 dark:text-foreground before:bg-input dark:before:bg-muted-foreground hidden font-semibold transition-all duration-300 before:absolute before:-inset-1 before:right-0 before:left-auto before:flex before:h-7.5 before:w-full before:cursor-pointer before:items-center before:justify-center before:rounded-sm before:text-sm before:text-black before:opacity-100 before:transition-all before:duration-700 before:ease-in-out before:content-['Scratch'] hover:before:w-0 hover:before:opacity-0 sm:relative sm:inline-block">
-            <Link
-              href="#resume"
-              passHref
-              className=""
+          <span className="text-foreground/80 dark:text-foreground before:bg-input dark:before:bg-muted-foreground hidden font-semibold transition-all duration-300 before:absolute before:inset-0 before:right-0 before:left-auto before:flex before:h-7.5 before:w-full before:cursor-pointer before:items-center before:justify-center before:rounded-sm before:text-sm before:text-black before:opacity-100 before:transition-all before:duration-700 before:ease-in-out before:content-['Scratch'] hover:before:w-0 hover:before:opacity-0 sm:relative sm:inline-block">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="border-muted-foreground border hover:cursor-pointer hover:bg-transparent"
               title="Click to view Résumé"
               onClick={(e) => {
                 e.preventDefault();
@@ -236,7 +236,7 @@ export default function Home() {
               }}
             >
               &middot;&nbsp;Won A Talent's Résumé&nbsp;&middot;&nbsp;
-            </Link>
+            </Button>
           </span>
         </div>
       </section>
@@ -245,8 +245,19 @@ export default function Home() {
         id="resume"
         className="flex w-full flex-col items-center gap-y-5"
       >
-        <div className="mt-6 text-center text-4xl">
-          Hooray! <br />
+        <div className="mt-6 flex items-center justify-center gap-x-3 px-50 text-4xl">
+          <span className="relative m-1 flex h-5 w-5">
+            <Star className="absolute inline-flex h-full w-full animate-ping fill-yellow-500 text-yellow-500 opacity-75 dark:fill-yellow-400 dark:text-yellow-400" />
+            <Star className="relative inline-flex h-5 w-5 rounded-full fill-yellow-500 text-yellow-500 dark:fill-yellow-400 dark:text-yellow-400" />
+          </span>
+          Hooray!
+          <span className="relative m-1 flex h-5 w-5">
+            <Star className="absolute inline-flex h-full w-full animate-ping fill-yellow-500 text-yellow-500 opacity-75 dark:fill-yellow-400 dark:text-yellow-400" />
+            <Star className="relative inline-flex h-5 w-5 rounded-full fill-yellow-500 text-yellow-500 dark:fill-yellow-400 dark:text-yellow-400" />
+          </span>
+        </div>
+
+        <div className="px-30 text-center text-4xl">
           You have just won a talent for your company!
         </div>
 
@@ -270,7 +281,7 @@ export default function Home() {
           rel="noopener noreferrer"
           className="mt-2 block underline-offset-4 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
         >
-          Resume v2.7.2 - Khaw Chi Hun (As of 04 Aug 2026)
+          Résumé v2.7.2 - Khaw Chi Hun (As of 04 Aug 2026)
         </Link>
 
         <div
