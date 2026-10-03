@@ -128,3 +128,33 @@
     @apply font-sans;
   }
 }
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100,100,100,0.4) transparent;
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(100,100,100,0.4);
+  border-radius: 9999px;
+}
+
+/* Dark mode */
+.dark ::-webkit-scrollbar-thumb,
+.dark::-webkit-scrollbar-thumb {
+  background-color: rgba(200,200,200,0.3);
+}
+
+.dark {
+  scrollbar-color: rgba(200,200,200,0.3) transparent;
+}
