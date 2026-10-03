@@ -24,39 +24,26 @@ function Intro() {
     <section id="intro">
       <div className="mt-20 flex flex-col items-center justify-center lg:h-[77vh] lg:flex-row">
         <div className="flex items-center justify-center lg:w-1/2">
-          <div className="relative mx-16 hidden dark:block">
-            <div className="bg-muted-foreground absolute top-5 left-[45%] h-full w-full -translate-x-1/2 rounded-lg shadow-xl">
-              <Image
-                src={`${basePath}/images/light.jpeg`}
-                width={345}
-                height={445}
-                alt={"dark"}
-                loading="eager"
-                className="rounded-lg"
-              />
-            </div>
-
+          <div className="mx-16 hidden dark:block">
             <Image
               src={`${basePath}/images/dark.jpeg`}
               width={380}
               height={480}
               alt={"dark"}
               loading="eager"
-              className="relative z-10 rounded-lg"
+              className="rounded-lg"
             />
           </div>
 
-          <div className="relative mx-5 block dark:hidden">
-            <div className="absolute top-5 left-[45%] w-full -translate-x-1/2 rounded-lg shadow-xl">
-              <Image
-                src={`${basePath}/images/dark.jpeg`}
-                width={380}
-                height={480}
-                alt={"dark"}
-                loading="eager"
-                className="rounded-lg"
-              />
-            </div>
+          <div className="mx-5 block dark:hidden">
+            <Image
+              src={`${basePath}/images/light.jpeg`}
+              width={215}
+              height={315}
+              alt={"dark"}
+              loading="eager"
+              className="block rounded-lg lg:hidden"
+            />
 
             <Image
               src={`${basePath}/images/light.jpeg`}
@@ -64,7 +51,7 @@ function Intro() {
               height={445}
               alt={"dark"}
               loading="eager"
-              className="relative z-10 rounded-lg"
+              className="hidden rounded-lg lg:block"
             />
           </div>
         </div>
