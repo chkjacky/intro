@@ -5,6 +5,8 @@ import Link from "next/link";
 import AIAgentArcade from "./AIAgentArcade";
 import VolksmarketArcade from "./VolksmarketArcade";
 
+const basePath = process.env.NODE_ENV === "production" ? "/intro" : "";
+
 export default function V2() {
   return (
     <main className="mx-2 lg:mx-20">
@@ -25,7 +27,7 @@ function Intro() {
           <div className="relative mx-16 hidden dark:block">
             <div className="bg-muted-foreground absolute top-5 left-[45%] h-full w-full -translate-x-1/2 rounded-lg shadow-xl">
               <Image
-                src={"/images/light.jpeg"}
+                src={`${basePath}/images/light.jpeg`}
                 width={345}
                 height={445}
                 alt={"dark"}
@@ -35,7 +37,7 @@ function Intro() {
             </div>
 
             <Image
-              src={"/images/dark.jpeg"}
+              src={`${basePath}/images/dark.jpeg`}
               width={380}
               height={480}
               alt={"dark"}
@@ -47,7 +49,7 @@ function Intro() {
           <div className="relative mx-5 block dark:hidden">
             <div className="absolute top-5 left-[45%] w-full -translate-x-1/2 rounded-lg shadow-xl">
               <Image
-                src={"/images/dark.jpeg"}
+                src={`${basePath}/images/dark.jpeg`}
                 width={380}
                 height={480}
                 alt={"dark"}
@@ -57,7 +59,7 @@ function Intro() {
             </div>
 
             <Image
-              src={"/images/light.jpeg"}
+              src={`${basePath}/images/light.jpeg`}
               width={345}
               height={445}
               alt={"dark"}
