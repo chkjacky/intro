@@ -9,7 +9,7 @@ export default function Resume() {
         id="resume"
         className="flex w-full flex-col items-center justify-center gap-y-10"
       >
-        <div className="mt-14 text-center text-5xl font-light tracking-wide">
+        <div className="mt-14 hidden text-center text-5xl font-light tracking-wide lg:block">
           <div className="dark:text-foreground text-foreground">
             <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
               <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
@@ -22,9 +22,13 @@ export default function Resume() {
           </div>
         </div>
 
+        <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:hidden lg:text-left lg:text-6xl">
+          PROFESSIONAL EXPERIENCE
+        </div>
+
         <div className="flex w-1/2 flex-col gap-y-2 md:w-1/3">
           <div className="flex w-full flex-col gap-y-2 lg:flex-row lg:gap-x-3">
-            <div className="hover:bg-input/30 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border border-chart-4  p-px transition-all duration-300 lg:h-16 lg:w-1/2">
+            <div className="hover:bg-input/30 border-chart-4 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px transition-all duration-300 lg:h-16 lg:w-1/2">
               <svg
                 role="img"
                 viewBox="0 0 24 24"
@@ -49,7 +53,7 @@ export default function Resume() {
               </Link>
             </div>
 
-            <div className="hover:bg-input/30 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border border-chart-4  p-px transition-all duration-300 lg:h-16 lg:w-1/2">
+            <div className="hover:bg-input/30 border-chart-4 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border p-px transition-all duration-300 lg:h-16 lg:w-1/2">
               <svg
                 role="img"
                 viewBox="0 0 24 24"
@@ -94,7 +98,7 @@ export default function Resume() {
           href="https://www.canva.com/design/DAHRViysJv0/MLvT85SVggV3UsWe_VNhKQ/view?utm_content=DAHRViysJv0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h61157b8fd4"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 mx-5 block underline-offset-4 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+          className="mx-5 mt-2 block underline-offset-4 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
         >
           Résumé v2.7.2 - Khaw Chi Hun (As of 04 Aug 2026)
         </Link>

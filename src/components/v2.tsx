@@ -58,14 +58,16 @@ function Intro() {
 
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center lg:w-1/2">
           <p className="text-xl font-light sm:text-2xl lg:text-4xl">
-            Welcome To The Profile Of
+            Hi! I'm Jacky
           </p>
 
-          <p className="text-xl font-normal tracking-widest sm:text-4xl lg:text-6xl">
-            Jacky
+          <p className="text-base font-light tracking-widest">
+            Software Engineer
+            <br />
+            AI / Fintech / RWA / Web3
           </p>
 
-          <div className="mt-6 flex w-full flex-col gap-y-5">
+          <div className="mt-3 flex w-full flex-col gap-y-5">
             <div className="mx-3 flex flex-row gap-x-4 lg:mx-24">
               <div className="hover:bg-input/30 border-muted-foreground dark:border-chart-4 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border transition-all duration-300">
                 <svg
@@ -167,13 +169,13 @@ function Intro() {
 
       <div className="flex flex-col items-center justify-center gap-y-3 pt-10">
         <Button
-          title="View Project"
+          title="View Feature Project"
           onClick={(e) => {
             e.preventDefault();
             document
-              .getElementById("project-one")
+              .getElementById("feature-project-one")
               ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "project-one";
+            window.location.hash = "feature-project-one";
           }}
           className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
         >
@@ -187,18 +189,18 @@ function Intro() {
 function ProjectOne() {
   return (
     <section
-      id="project-one"
+      id="feature-project-one"
       className="flex h-screen flex-col justify-center lg:flex-none"
     >
       <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:text-left lg:text-6xl">
-        PROJECT ONE
+        FEATURE PROJECTS
       </div>
 
-      <div className="flex flex-col lg:h-[77vh] lg:flex-row">
+      <div className="mt-10 flex flex-col lg:mt-0 lg:h-[77vh] lg:flex-row">
         <div className="flex w-full flex-col items-center justify-center lg:w-2/5 lg:items-start">
           <p className="text-foreground/80 dark:text-foreground leading-tight font-light tracking-wide text-wrap">
             <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
-              Prediction Market
+              1. Prediction Market
             </span>
           </p>
 
@@ -249,22 +251,26 @@ function ProjectTwo() {
       id="project-two"
       className="flex h-screen flex-col justify-center lg:flex-none"
     >
-      <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:text-left lg:text-6xl">
-        PROJECT TWO
-      </div>
+      <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:text-left lg:text-6xl"></div>
 
       <div className="flex flex-col lg:h-[77vh] lg:flex-row-reverse">
         <div className="flex w-full justify-center not-last:items-center lg:w-2/5">
-          <div className="dark:text-foreground text-foreground/80 mb-5">
-            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-center text-xl sm:text-3xl lg:text-5xl">
+          <div className="dark:text-foreground text-foreground/80 mb-5 hidden lg:block">
+            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-center text-3xl font-medium tracking-widest sm:text-4xl">
               <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
-                <span className="block backface-hidden">AI Agent</span>
+                <span className="block backface-hidden">2. AI Agent</span>
                 <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
                   Accounting Agent
                 </span>
               </span>
             </span>
           </div>
+
+          <p className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
+            <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
+              2. AI Accounting Agent
+            </span>
+          </p>
         </div>
 
         <div className="flex w-full items-center lg:w-3/5">
