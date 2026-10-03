@@ -9,7 +9,7 @@ export default function VolksmarketArcade() {
       }}
     >
       <iframe
-        src="https://demo.arcade.software/Z0LEAEHXvsMmR0S1xnkb?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+        src="https://demo.arcade.software/Z0LEAEHXvsMmR0S1xnkb?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
         title="Volksmarket - A true prediction market"
         loading="lazy"
         allowFullScreen
