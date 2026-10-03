@@ -10,8 +10,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Chi Hun Resume",
-  description: "Developed By Chi Hun (Jacky)",
+  title: "Jacky's Personal Website",
+  description: "Developed By Jacky",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
