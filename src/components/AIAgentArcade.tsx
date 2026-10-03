@@ -9,7 +9,7 @@ export default function AIAgentArcade() {
       }}
     >
       <iframe
-        src="https://demo.arcade.software/z6d4XZBBlS8HlHmdVEsu?embed&embed_mobile=inline&embed_desktop=inline&show_copy_link=true"
+        src="https://demo.arcade.software/z6d4XZBBlS8HlHmdVEsu?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
         title="AI Agent - Accounting Agent"
         loading="lazy"
         allowFullScreen
