@@ -98,7 +98,7 @@ export default function Resume() {
           href="https://www.canva.com/design/DAHRViysJv0/MLvT85SVggV3UsWe_VNhKQ/view?utm_content=DAHRViysJv0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h61157b8fd4"
           target="_blank"
           rel="noopener noreferrer"
-          className="lg:text-foreground mx-5 mt-2 block text-blue-600 underline underline-offset-6 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+          className="lg:text-foreground mx-5 mt-2 block text-blue-600 dark:text-foreground underline underline-offset-6 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
         >
           View Résumé Externally
         </Link>
