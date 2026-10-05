@@ -14,7 +14,11 @@ export default function V2() {
     <main>
       <div className="mx-2 lg:mx-20">
         <Intro />
+      </div>
 
+      <TechStacks />
+
+      <div className="mx-2 lg:mx-20">
         <FeatureProjects />
 
         <ProjectOne />
@@ -168,7 +172,101 @@ function Intro() {
 
       <div className="flex flex-col items-center justify-center gap-y-3 pt-10">
         <Button
-          title="View Feature Project"
+          title="View Tech Stacks"
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById("tech-stacks")
+              ?.scrollIntoView({ behavior: "smooth" });
+            window.location.hash = "tech-stacks";
+          }}
+          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
+        >
+          <MoveDown className="h-5 w-5 text-white" />
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function TechStacks() {
+  return (
+    <section
+      id="tech-stacks"
+      className="flex h-screen flex-col justify-center lg:flex-none"
+    >
+      <div className="my-7 flex flex-col items-center justify-center text-center lg:flex-row">
+        <div className="mt-14 hidden text-center text-5xl font-light tracking-wide lg:block">
+          <div className="dark:text-foreground text-foreground">
+            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
+              <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
+                <span className="block backface-hidden">TECH</span>
+                <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
+                  STACKS
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:hidden lg:text-left lg:text-6xl">
+          TECH STACKS
+        </div>
+      </div>
+
+      <div className="flex flex-col lg:h-[77vh]">
+        <div className="block lg:hidden">
+          <div className="w-ful grid grid-cols-2 text-center text-lg tracking-widest">
+            <div> Python </div>
+            <div> Typescript </div>
+            <div> Javascript </div>
+            <div> PHP </div>
+            <div> Solidity </div>
+            <div> Ruby </div>
+            <div> NextJS </div>
+            <div> Ruby On Rails </div>
+            <div> NestJS </div>
+            <div> Shadcn </div>
+            <div> Tailwind </div>
+            <div> Jira </div>
+            <div> PostgreSQL </div>
+            <div> MySQL </div>
+            <div> Postman </div>
+            <div> Retool </div>
+          </div>
+        </div>
+
+        <div className="hidden lg:block">
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
+            <div className="w-fit py-4 text-center text-2xl">Python</div>
+            <div className="w-full py-8 text-center text-7xl">TYPESCRIPT</div>
+            <div className="w-full py-4 text-center text-5xl">Javascript</div>
+            <div className="w-fit py-2 text-center text-xl">PHP</div>
+            <div className="w-full py-2 text-center text-3xl">Solidity</div>
+            <div className="w-fit py-4 text-center text-3xl">Ruby</div>
+          </div>
+
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
+            <div className="w-fit py-8 text-center text-7xl">NextJS</div>
+            <div className="w-full py-2 text-center text-xl">Ruby On Rails</div>
+            <div className="w-full py-8 text-center text-7xl">NestJS</div>
+            <div className="w-full py-4 text-center text-5xl">Shadcn</div>
+            <div className="w-fit py-4 text-center text-5xl">Tailwind</div>
+          </div>
+
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
+            <div className="w-full py-4 text-center text-5xl">Jira</div>
+            <div className="w-full py-8 text-center text-7xl">PostgreSQL</div>
+            <div className="w-full py-2 text-center text-3xl">MySQL</div>
+            <div className="w-full py-8 text-center text-7xl">Postman</div>
+            <div className="w-full py-4 text-center text-5xl">Retool</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-center gap-y-3 pt-10">
+        <Button
+          title="View Feature Projects"
           onClick={(e) => {
             e.preventDefault();
             document
