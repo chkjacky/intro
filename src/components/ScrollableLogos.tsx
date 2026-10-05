@@ -53,7 +53,7 @@ const CircularLogo: React.FC<RotatingFlagProps> = ({
          * 		k = the factor or val to determine the speed
          * 					the higher the value, the slower the self rotation
          */
-        const scrollRotation = scrollY / (rotationSpeed * 3);
+        const scrollRotation = scrollY / (rotationSpeed * 7);
 
         const updatedTranslateX = initialX + scrollY / translationFactor;
 
@@ -120,7 +120,7 @@ const LongPill: React.FC = () => {
        * 					the smaller the value, the faster the growing speed
        */
       if (window.innerWidth <= 640) {
-        newWidth = 100 + (scrollY - 100) / 50.5;
+        newWidth = (scrollY + 50) / 17.5;
       } else if (window.innerWidth <= 768) {
         newWidth = 100 + (scrollY - 100) / 20.5;
       } else if (window.innerWidth <= 1024) {
@@ -194,7 +194,7 @@ export default function ScrollableLogos() {
      * The smaller the value, the faster the movement
      */
     if (window.innerWidth <= 640) {
-      return 40;
+      return 15.5;
     } else if (window.innerWidth <= 768) {
       return 23;
     } else if (window.innerWidth <= 1024) {
@@ -208,7 +208,7 @@ export default function ScrollableLogos() {
   return (
     <div className="bg-background relative w-full">
       <div className="flex w-full items-center justify-start gap-4 overflow-hidden px-0">
-        <div className="h-32 w-32 shrink-0 sm:h-36 sm:w-36 md:h-44 md:w-44 lg:h-52 lg:w-52">
+        <div className="h-32 w-10 shrink-0 sm:h-36 sm:w-36 md:h-44 md:w-44 lg:h-52 lg:w-52">
           <LongPill />
         </div>
 
