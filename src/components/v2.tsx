@@ -12,6 +12,8 @@ export default function V2() {
     <main className="mx-2 lg:mx-20">
       <Intro />
 
+      <FeatureProjects />
+
       <ProjectOne />
 
       <ProjectTwo />
@@ -26,7 +28,7 @@ function Intro() {
         <div className="flex items-center justify-center lg:w-1/2">
           <div className="mx-16 hidden dark:block">
             <Image
-              src={`${basePath}/images/dark.jpeg`}
+              src={`${basePath}/images/dark.png`}
               width={380}
               height={480}
               alt={"dark"}
@@ -35,39 +37,28 @@ function Intro() {
             />
           </div>
 
-          <div className="mx-5 block dark:hidden">
+          <div className="mx-16 block dark:hidden">
             <Image
-              src={`${basePath}/images/light.jpeg`}
-              width={215}
-              height={315}
+              src={`${basePath}/images/light.png`}
+              width={380}
+              height={480}
               alt={"dark"}
               loading="eager"
-              className="block rounded-lg lg:hidden"
-            />
-
-            <Image
-              src={`${basePath}/images/light.jpeg`}
-              width={345}
-              height={445}
-              alt={"dark"}
-              loading="eager"
-              className="hidden rounded-lg lg:block"
+              className="rounded-lg"
             />
           </div>
         </div>
 
         <div className="mt-4 flex w-full flex-col items-center justify-center text-center lg:w-1/2">
-          <p className="text-xl font-light sm:text-2xl lg:text-4xl">
-            Hi! I'm Jacky
-          </p>
+          <p className="text-3xl font-light lg:text-4xl">Hi! I'm Jacky</p>
 
           <p className="text-base font-light tracking-widest">
             Software Engineer
             <br />
-            AI / Fintech / RWA / Web3
+            AI · Fintech · RWA · Web3
           </p>
 
-          <div className="mt-3 flex w-full flex-col gap-y-5">
+          <div className="mt-1 flex w-full flex-col gap-y-5">
             <div className="mx-3 flex flex-row gap-x-4 lg:mx-24">
               <div className="hover:bg-input/30 border-muted-foreground dark:border-chart-4 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border transition-all duration-300">
                 <svg
@@ -173,9 +164,38 @@ function Intro() {
           onClick={(e) => {
             e.preventDefault();
             document
+              .getElementById("feature-projects")
+              ?.scrollIntoView({ behavior: "smooth" });
+            window.location.hash = "feature-projects";
+          }}
+          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
+        >
+          <MoveDown className="h-5 w-5 text-white" />
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+function FeatureProjects() {
+  return (
+    <section id="feature-projects">
+      <div className="flex h-[77vh] flex-col items-center justify-center text-center lg:flex-row">
+        <span className="group relative inline-block cursor-text text-5xl font-light tracking-wide transition-all duration-300 lg:text-6xl">
+          FEATURE PROJECTS
+          <span className="absolute -bottom-2 left-0 h-0.5 w-0 bg-current transition-all duration-300 group-hover:w-full lg:h-0.75" />
+        </span>
+      </div>
+
+      <div className="flex flex-col items-center justify-center gap-y-3 pt-10">
+        <Button
+          title="View First Project"
+          onClick={(e) => {
+            e.preventDefault();
+            document
               .getElementById("feature-project-one")
               ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "feature-project-one";
+            window.location.hash = "feature-project-one-two";
           }}
           className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
         >
@@ -192,15 +212,11 @@ function ProjectOne() {
       id="feature-project-one"
       className="flex h-screen flex-col justify-center lg:flex-none"
     >
-      <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:text-left lg:text-6xl">
-        FEATURE PROJECTS
-      </div>
-
-      <div className="mt-10 flex flex-col lg:mt-0 lg:h-[77vh] lg:flex-row">
+      <div className="flex flex-col lg:h-[77vh] lg:flex-row">
         <div className="flex w-full flex-col items-center justify-center lg:w-2/5 lg:items-start">
           <p className="text-foreground/80 dark:text-foreground leading-tight font-light tracking-wide text-wrap">
             <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
-              1. Prediction Market
+              Prediction Market
             </span>
           </p>
 
@@ -232,9 +248,9 @@ function ProjectOne() {
           onClick={(e) => {
             e.preventDefault();
             document
-              .getElementById("project-two")
+              .getElementById("feature-project-two")
               ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "project-two";
+            window.location.hash = "feature-project-two";
           }}
           className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
         >
@@ -248,17 +264,15 @@ function ProjectOne() {
 function ProjectTwo() {
   return (
     <section
-      id="project-two"
+      id="feature-project-two"
       className="flex h-screen flex-col justify-center lg:flex-none"
     >
-      <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:text-left lg:text-6xl"></div>
-
       <div className="flex flex-col lg:h-[77vh] lg:flex-row-reverse">
         <div className="flex w-full justify-center not-last:items-center lg:w-2/5">
           <div className="dark:text-foreground text-foreground/80 mb-5 hidden lg:block">
             <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-center text-3xl font-medium tracking-widest sm:text-4xl">
               <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
-                <span className="block backface-hidden">2. AI Agent</span>
+                <span className="block backface-hidden">AI Agent</span>
                 <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
                   Accounting Agent
                 </span>
@@ -268,7 +282,7 @@ function ProjectTwo() {
 
           <p className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
             <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
-              2. AI Accounting Agent
+              AI Accounting Agent
             </span>
           </p>
         </div>
