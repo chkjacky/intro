@@ -9,6 +9,32 @@ import { useEffect } from "react";
 
 const basePath = process.env.NODE_ENV === "production" ? "/intro" : "";
 
+const magnifierEffect = (
+  size: string,
+  padding: number,
+  widthFull: boolean = true,
+) => {
+  const textSizes: Record<string, string> = {
+    "1xl": "text-1xl",
+    "2xl": "text-2xl",
+    "3xl": "text-3xl",
+    "4xl": "text-4xl",
+    "5xl": "text-5xl",
+    "6xl": "text-6xl",
+    "7xl": "text-7xl",
+  };
+
+  const paddingTypes: Record<number, string> = {
+    2: "py-2",
+    4: "py-4",
+    8: "py-8",
+  };
+
+  const width = widthFull ? "w-full" : "w-fit";
+
+  return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in transition-transform duration-300 ease-in-out hover:scale-110`;
+};
+
 export default function V2() {
   return (
     <main>
@@ -237,29 +263,29 @@ function TechStacks() {
         </div>
 
         <div className="hidden lg:block">
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
-            <div className="w-fit py-4 text-center text-2xl">Python</div>
-            <div className="w-full py-8 text-center text-7xl">TYPESCRIPT</div>
-            <div className="w-full py-4 text-center text-5xl">Javascript</div>
-            <div className="w-fit py-2 text-center text-xl">PHP</div>
-            <div className="w-full py-2 text-center text-3xl">Solidity</div>
-            <div className="w-fit py-4 text-center text-3xl">Ruby</div>
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
+            <div className={magnifierEffect("3xl", 4, false)}>Python</div>
+            <div className={magnifierEffect("7xl", 8)}>Typescript</div>
+            <div className={magnifierEffect("5xl", 4)}>Javascript</div>
+            <div className={magnifierEffect("3xl", 2, false)}>PHP</div>
+            <div className={magnifierEffect("4xl", 2)}>Solidity</div>
+            <div className={magnifierEffect("3xl", 4, false)}>Ruby</div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
-            <div className="w-fit py-8 text-center text-7xl">NextJS</div>
-            <div className="w-full py-2 text-center text-xl">Ruby On Rails</div>
-            <div className="w-full py-8 text-center text-7xl">NestJS</div>
-            <div className="w-full py-4 text-center text-5xl">Shadcn</div>
-            <div className="w-fit py-4 text-center text-5xl">Tailwind</div>
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
+            <div className={magnifierEffect("7xl", 8, false)}>NextJS</div>
+            <div className={magnifierEffect("3xl", 2)}>Ruby On Rails</div>
+            <div className={magnifierEffect("7xl", 8)}>NestJS</div>
+            <div className={magnifierEffect("5xl", 4)}>Shadcn</div>
+            <div className={magnifierEffect("5xl", 4, false)}>Tailwind</div>
           </div>
 
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 lg:flex-row">
-            <div className="w-full py-4 text-center text-5xl">Jira</div>
-            <div className="w-full py-8 text-center text-7xl">PostgreSQL</div>
-            <div className="w-full py-2 text-center text-3xl">MySQL</div>
-            <div className="w-full py-8 text-center text-7xl">Postman</div>
-            <div className="w-full py-4 text-center text-5xl">Retool</div>
+          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
+            <div className={magnifierEffect("3xl", 4)}>Jira</div>
+            <div className={magnifierEffect("7xl", 8)}>PostgreSQL</div>
+            <div className={magnifierEffect("3xl", 2)}>MySQL</div>
+            <div className={magnifierEffect("7xl", 8)}>Postman</div>
+            <div className={magnifierEffect("5xl", 4)}>Retool</div>
           </div>
         </div>
       </div>
