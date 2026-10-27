@@ -107,8 +107,11 @@ function useDockMagnify(ref: RefObject<HTMLElement | null>) {
 
     // Size of the letter right under the cursor (1.6 = 160%)
     const MAX_SCALE = 1.6;
-    // How far the lens reaches, in multiples of the word's font size.
-    // Bigger = more letters grow, smaller = tighter lens.
+
+    /**
+     * How far the lens reaches, in multiples of the word's font size.
+     * Bigger = more letters grow, smaller = tighter lens.
+     */
     const RADIUS_IN_EM = 1.5;
 
     const cleanups: (() => void)[] = [];
@@ -122,12 +125,15 @@ function useDockMagnify(ref: RefObject<HTMLElement | null>) {
 
       const update = () => {
         frame = 0;
+
         // Scales with the text, so small and large words feel the same
         const RADIUS =
           parseFloat(getComputedStyle(group).fontSize) * RADIUS_IN_EM;
 
-        // offsetLeft/offsetWidth ignore transforms, so measuring while
-        // items are scaled doesn't make the effect jitter
+        /**
+         *  offsetLeft/offsetWidth ignore transforms, so measuring while
+         * items are scaled doesn't make the effect jitter
+         */
         const scales = items.map((item) => {
           const centre = item.offsetLeft + item.offsetWidth / 2;
           const distance = Math.abs(cursorX - centre);
@@ -144,8 +150,10 @@ function useDockMagnify(ref: RefObject<HTMLElement | null>) {
         );
         const total = growth.reduce((sum, g) => sum + g, 0);
 
-        // Each letter moves right by half of what grew on its left and left
-        // by half of what grew on its right, keeping the gaps between them
+        /**
+         * Each letter moves right by half of what grew on its left and left
+         * by half of what grew on its right, keeping the gaps between them
+         */
         let grownLeft = 0;
         items.forEach((item, i) => {
           const grownRight = total - grownLeft - growth[i];
