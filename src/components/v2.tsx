@@ -267,15 +267,19 @@ function ProjectOne() {
 
           <div>
             <p className="text-foreground/80 dark:text-foreground font-base text-base leading-relaxed tracking-wide sm:text-xl sm:text-wrap lg:text-2xl">
-              <span className="before:bg-input hidden cursor-grab font-semibold tracking-widest text-[#D1B200] transition-all duration-200 before:absolute before:inset-0 before:right-0 before:left-auto before:w-full before:transition-all before:duration-500 before:ease-in-out before:content-[''] hover:before:w-0 sm:relative sm:inline-block dark:text-[#FFD700] dark:before:bg-white">
-                Volksmarket
+              <span className="before:bg-input hidden cursor-grab font-semibold tracking-widest text-[#D1B200] transition-all duration-200 before:absolute before:inset-0 before:right-0 before:left-auto before:w-full before:transition-all before:duration-500 before:ease-in-out before:content-[''] hover:before:w-0 sm:relative sm:inline-block dark:text-[#f1d537] dark:before:bg-white">
+                VOLKSMARKET
               </span>
             </p>
 
-            <p className="font-base text-3xl leading-relaxed tracking-widest text-[#D1B200] sm:hidden sm:text-xl sm:text-wrap lg:text-2xl dark:text-[#D1B200]">
+            <p className="font-base text-3xl leading-relaxed tracking-widest text-[#D1B200] sm:hidden sm:text-xl sm:text-wrap lg:text-2xl dark:text-[#f1d537]">
               Volksmarket
             </p>
           </div>
+
+          <p className="mt-5 font-light text-wrap">
+            A prediction market only relies on true facts.
+          </p>
         </div>
 
         <div className="flex w-full items-center lg:w-3/5">
@@ -300,7 +304,7 @@ function ProjectTwo() {
       <div className="flex h-[90vh] flex-col items-center justify-center lg:flex-row-reverse">
         <div className="flex w-full justify-center not-last:items-center lg:w-2/5">
           <div className="dark:text-foreground text-foreground/80 mb-5 hidden lg:block">
-            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-center text-3xl font-medium tracking-widest sm:text-4xl">
+            <span className="perspective-500 group relative mb-10 inline-block w-full cursor-col-resize text-center text-3xl font-medium tracking-widest sm:text-4xl">
               <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
                 <span className="block backface-hidden">AI Agent</span>
                 <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
@@ -308,13 +312,23 @@ function ProjectTwo() {
                 </span>
               </span>
             </span>
+
+            <p className="px-10 text-justify font-light text-wrap">
+              An AI accounting agent manages accounting documents, simplifying
+              life for accountants.
+            </p>
           </div>
 
-          <p className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
-            <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
+          <div className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
+            <span className="relative mb-10 inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
               AI Accounting Agent
             </span>
-          </p>
+
+            <p className="font-light text-wrap">
+              An AI accounting agent manages accounting documents, simplifying
+              life for accountants.
+            </p>
+          </div>
         </div>
 
         <div className="flex w-full items-center lg:w-3/5">
@@ -414,6 +428,14 @@ function ProjectThree() {
               <br />
               GAMES & PAYMENT
             </span>
+          </p>
+
+          <p className="mt-5 font-light text-wrap">
+            Play the Game.
+            <br />
+            Own the Rewards.
+            <br />
+            Pay Without Borders.
           </p>
         </div>
       </div>
