@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Mouse, MoveDown } from "lucide-react";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import AIAgentArcade from "./AIAgentArcade";
 import Contacts from "./Contacts";
 import ScrollableLogos from "./ScrollableLogos";
@@ -70,9 +70,9 @@ export default function V2() {
 
       <TechStacks />
 
-      <div className="mx-2 lg:mx-20">
-        <FeatureProjects />
+      <FeaturedProjects />
 
+      <div className="mx-2 lg:mx-20">
         <ProjectOne />
 
         <ProjectTwo />
@@ -219,30 +219,99 @@ function TechStacks() {
       </div>
 
       <BounceToScrollDown
-        sectionName="Feature Projects"
-        sectionId="feature-projects"
+        sectionName="Featured Projects"
+        sectionId="featured-projects"
       />
     </section>
   );
 }
 
-function FeatureProjects() {
+function FeaturedProjects() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // 0 when the section enters from the bottom, 1 when it leaves at the top
+      const progress = clamp((vh - rect.top) / (vh + rect.height));
+      // Peaks when the section fills the viewport, fading in before and out after
+      const fade = clamp(1 - Math.abs(rect.top) / vh);
+
+      section.style.setProperty(
+        "--fp-progress",
+        String(reduceMotion ? 0.5 : progress),
+      );
+      section.style.setProperty("--fp-fade", String(fade));
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
     <section
-      id="feature-projects"
-      className="flex h-screen flex-col justify-center lg:flex-none"
+      ref={sectionRef}
+      id="featured-projects"
+      className="relative flex h-screen flex-col justify-center overflow-hidden lg:flex-none"
     >
-      <div className="flex h-[90vh] flex-col items-center justify-center text-center lg:flex-row">
-        <span className="group relative inline-block cursor-text text-5xl font-light tracking-widest transition-all duration-300 lg:text-6xl lg:tracking-[.45rem]">
-          FEATURE PROJECTS
-          <span className="absolute -bottom-2 left-0 h-0.5 w-0 bg-current transition-all duration-300 group-hover:w-full lg:h-0.75" />
+      <div
+        aria-hidden="true"
+        className="bg-input/55 dark:bg-input/30 pointer-events-none absolute inset-0"
+        style={{ opacity: "var(--fp-fade, 0)" }}
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 flex items-center select-none"
+        style={{ opacity: "var(--fp-fade, 0)" }}
+      >
+        <span
+          className="text-background dark:text-foreground/10 shrink-0 text-[18vw] leading-none font-semibold tracking-tighter whitespace-nowrap will-change-transform"
+          style={{
+            transform: "translateX(calc(-70% + var(--fp-progress, 0.5) * 80%))",
+          }}
+        >
+          FEATURED PROJECTS
         </span>
       </div>
 
-      <BounceToScrollDown
-        sectionName="First Project"
-        sectionId="feature-project-one"
-      />
+      <div className="relative z-10 mx-2 lg:mx-20">
+        <div className="flex h-[90vh] flex-col items-center justify-center text-center lg:flex-row">
+          <span className="group relative inline-block cursor-text text-5xl font-light tracking-widest transition-all duration-300 lg:text-6xl lg:tracking-[.45rem]">
+            FEATURED PROJECTS
+            <span className="absolute -bottom-2 left-0 h-0.5 w-0 bg-current transition-all duration-300 group-hover:w-full lg:h-0.75" />
+          </span>
+        </div>
+
+        <BounceToScrollDown
+          sectionName="First Project"
+          sectionId="feature-project-one"
+        />
+      </div>
     </section>
   );
 }
