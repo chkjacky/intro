@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+  <defs>
+    <mask id="flame-cutout">
+      <rect width="512" height="512" fill="#fff"/>
+      <path d="M328 96c10 14 16 26 16 40h-32c0-14 6-26 16-40z" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- Flame -->
+  <g mask="url(#flame-cutout)">
+    <path d="M312 24c36 8 56 44 56 72 0 24-16 40-40 40s-40-16-40-40c0-32 24-48 24-72z" fill="#FF7043"/>
+    <path d="M312 24c16 24 28 48 28 72 0 24-4 40-12 40-24 0-40-16-40-40 0-32 24-48 24-72z" fill="#FF8A65"/>
+  </g>
+
+  <!-- Wheel -->
+  <circle cx="400" cy="176" r="34" fill="#5F5F5F"/>
+  <circle cx="392" cy="172" r="26" fill="#757575"/>
+
+  <!-- Chimney -->
+  <path d="M278 166h100a14 14 0 0 1 14 14v66H264v-66a14 14 0 0 1 14-14z" fill="#DADADA"/>
+  <path d="M278 166h74v80h-88v-66a14 14 0 0 1 14-14z" fill="#EBEBEB"/>
+  <rect x="288" y="200" width="32" height="16" rx="8" fill="#BDBDBD"/>
+  <rect x="336" y="200" width="32" height="16" rx="8" fill="#BDBDBD"/>
+
+  <!-- Lid -->
+  <path d="M120 24h96v222h-96a48 48 0 0 1-48-48V72a48 48 0 0 1 48-48z" fill="#FFA726"/>
+  <path d="M120 24h56v152a48 48 0 0 1-48 48h-8a48 48 0 0 1-48-48V72a48 48 0 0 1 48-48z" fill="#FFB74D"/>
+
+  <!-- Body -->
+  <path d="M216 246h224v194a48 48 0 0 1-48 48H264a48 48 0 0 1-48-48z" fill="#FFA726"/>
+  <path d="M216 246h184v146a48 48 0 0 1-48 48H216z" fill="#FFB74D"/>
+</svg>

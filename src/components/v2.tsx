@@ -484,6 +484,9 @@ function ProjectThree() {
     <section
       id="feature-project-three"
       className="emoji-splash flex h-screen flex-col justify-center lg:flex-none"
+      style={{
+        cursor: `url('${basePath}/lighter.svg') 20 2, url('${basePath}/lighter-32.png') 20 2, pointer`,
+      }}
     >
       <div className="flex h-[90vh] flex-col items-center justify-center gap-y-10">
         <div className="w-full">
@@ -512,4 +515,8 @@ function ProjectThree() {
       <BounceToScrollDown sectionName="Experience" sectionId="resume" />
     </section>
   );
+}
+
+function ProjectFour() {
+  
 }
