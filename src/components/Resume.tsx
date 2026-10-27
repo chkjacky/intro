@@ -4,6 +4,9 @@ import Link from "next/link";
 import Contacts from "./Contacts";
 import { useSyncExternalStore } from "react";
 
+/**
+ * CLAUDE
+ */
 // The query string never changes after load, so there's nothing to subscribe to
 const subscribe = () => () => {};
 
@@ -21,6 +24,10 @@ function useFromLinkedIn() {
     () => false,
   );
 }
+
+/**
+ * END OF CLAUDE
+ */
 
 export default function Resume() {
   const fromLinkedIn = useFromLinkedIn();
