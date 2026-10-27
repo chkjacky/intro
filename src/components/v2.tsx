@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Mouse, MoveDown } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 import AIAgentArcade from "./AIAgentArcade";
 import Contacts from "./Contacts";
 import ScrollableLogos from "./ScrollableLogos";
@@ -34,6 +34,66 @@ const magnifierEffect = (
 
   return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in transition-transform duration-300 ease-in-out hover:scale-110`;
 };
+
+/**
+ * CLAUDE
+ */
+const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
+
+type ScrollVars = (
+  rect: DOMRect,
+  vh: number,
+  reduceMotion: boolean,
+) => Record<string, number>;
+
+/**
+ * Writes scroll-driven CSS variables onto the element, without re-rendering.
+ * `compute` must be stable (defined outside the component).
+ */
+function useScrollVars(
+  ref: RefObject<HTMLElement | null>,
+  compute: ScrollVars,
+) {
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const vars = compute(
+        element.getBoundingClientRect(),
+        window.innerHeight,
+        reduceMotion,
+      );
+      for (const [name, value] of Object.entries(vars)) {
+        element.style.setProperty(name, String(value));
+      }
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [ref, compute]);
+}
+/**
+ * END OF CLAUDE
+ */
 
 function BounceToScrollDown({
   sectionName,
@@ -79,6 +139,8 @@ export default function V2() {
       </div>
 
       <ProjectThree />
+
+      <ProjectFour />
     </main>
   );
 }
@@ -226,51 +288,18 @@ function TechStacks() {
   );
 }
 
+const featuredProjectsVars: ScrollVars = (rect, vh, reduceMotion) => ({
+  // 0 when the section enters from the bottom, 1 when it leaves at the top
+  "--fp-progress": reduceMotion
+    ? 0.5
+    : clamp((vh - rect.top) / (vh + rect.height)),
+  // Peaks when the section fills the viewport, fading in before and out after
+  "--fp-fade": clamp(1 - Math.abs(rect.top) / vh),
+});
+
 function FeaturedProjects() {
   const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const vh = window.innerHeight;
-
-      // 0 when the section enters from the bottom, 1 when it leaves at the top
-      const progress = clamp((vh - rect.top) / (vh + rect.height));
-      // Peaks when the section fills the viewport, fading in before and out after
-      const fade = clamp(1 - Math.abs(rect.top) / vh);
-
-      section.style.setProperty(
-        "--fp-progress",
-        String(reduceMotion ? 0.5 : progress),
-      );
-      section.style.setProperty("--fp-fade", String(fade));
-    };
-
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
+  useScrollVars(sectionRef, featuredProjectsVars);
 
   return (
     <section
@@ -512,11 +541,108 @@ function ProjectThree() {
         </div>
       </div>
 
-      <BounceToScrollDown sectionName="Experience" sectionId="resume" />
+      <BounceToScrollDown
+        sectionName="Fourth Project"
+        sectionId="feature-project-four"
+      />
     </section>
   );
 }
 
+const projectFourVars: ScrollVars = (rect, vh, reduceMotion) => ({
+  /**
+   * Drives the "RWA" shrink.
+   *
+   * 0 as the section enters from the bottom, 1 once it fills the viewport.
+   * Divide by a smaller number (e.g. `vh * 0.7`) to finish shrinking sooner.
+   */
+  "--p4-enter": reduceMotion ? 1 : clamp((vh - rect.top) / vh),
+
+  /**
+   * Drives the "<>" glyph and the colour fill behind it.
+   * Spans the section's whole trip through the viewport (about two screens of
+   * scrolling), so it moves at half the speed of the shrink:
+   * 0 when the section enters at the bottom, 0.5 when it fills the viewport
+   * (glyph in the middle), 1 when it leaves at the top.
+   */
+  "--p4-pull": reduceMotion ? 1 : clamp((vh - rect.top) / (vh + rect.height)),
+});
+
 function ProjectFour() {
-  
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useScrollVars(sectionRef, projectFourVars);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="feature-project-four"
+      className="relative flex h-screen flex-col justify-center overflow-hidden lg:flex-none"
+    >
+      {/* Colour fill, pulled in from the left by the "<>" glyph.
+          Its right edge follows the glyph, so at the middle of the section
+          the left half is coloured. To fill the whole width by the time the
+          section fills the viewport (separate from the glyph), use
+          `var(--p4-enter, 1)` here instead. */}
+      <div
+        aria-hidden="true"
+        className="bg-input/30 pointer-events-none absolute inset-0 origin-left"
+        style={{ transform: "scaleX(var(--p4-pull, 1))" }}
+      />
+
+      {/* "<>" glyph: moves from the left edge (pull 0) through the middle
+          (pull 0.5) to the right edge (pull 1). Change the speed in
+          `projectFourVars` above. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 select-none"
+        style={{ transform: "translateX(calc(var(--p4-pull, 1) * 100%))" }}
+      >
+        {/* Glyph size: text-[40vh]. Colour: text-foreground/10 */}
+        <span className="text-foreground/10 absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 text-[40vh] leading-none font-light">
+          &lt;&gt;
+        </span>
+      </div>
+
+      <div className="relative z-10">
+        <div className="flex h-[90vh] flex-col items-center justify-center text-center">
+          {/* FINAL size of "RWA" (where it settles): the text-* classes below,
+              text-5xl on mobile and lg:text-6xl on large screens. */}
+          <span
+            className="inline-block pt-36 pl-4 text-5xl font-light tracking-widest lg:pt-26 lg:text-8xl lg:tracking-widest"
+            style={{
+              /**
+               * INITIAL size of "RWA": the `5` is how much bigger it starts
+               * than the final size. Starting scale = 1 + 5 = 6x.
+               * e.g. `* 3` starts at 4x, `* 9` starts at 10x.
+               */
+              transform: "scale(calc(1 + (1 - var(--p4-enter, 1)) * 5))",
+            }}
+          >
+            RWA
+          </span>
+
+          <span
+            className="mt-10 inline-block font-light lg:mt-5"
+            style={{
+              /**
+               * Hidden while "RWA" is shrinking, then fades in and rises 1rem
+               * over the last 30% of the shrink (--p4-enter 0.7 → 1).
+               * Lower `0.7` (and set `0.3` to 1 minus it) to start sooner.
+               */
+              opacity: "calc((var(--p4-enter, 1) - 0.7) / 0.3)",
+              transform:
+                "translateY(calc(min(1, (1 - var(--p4-enter, 1)) / 0.3) * 1rem))",
+            }}
+          >
+            A non financial-product-based Real World Asset Tokenization
+            Marketplace. <br />
+            (Coming Soon)
+          </span>
+        </div>
+
+        <BounceToScrollDown sectionName="Experience" sectionId="resume" />
+      </div>
+    </section>
+  );
 }
