@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Mouse, MoveDown } from "lucide-react";
 import Image from "next/image";
 import { type RefObject, useEffect, useRef } from "react";
-import AIAgentArcade from "./AIAgentArcade";
+import AIAgentArcade from "./arcades/AIAgentArcade";
+import VolksmarketArcade from "./arcades/VolksmarketArcade";
 import Contacts from "./Contacts";
 import ScrollableLogos from "./ScrollableLogos";
-import VolksmarketArcade from "./VolksmarketArcade";
 
 const basePath = process.env.NODE_ENV === "production" ? "/intro" : "";
 
@@ -32,7 +32,7 @@ const magnifierEffect = (
 
   const width = widthFull ? "w-full" : "w-fit";
 
-  return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in transition-transform duration-300 ease-in-out hover:scale-110`;
+  return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in`;
 };
 
 /**
@@ -90,6 +90,124 @@ function useScrollVars(
       cancelAnimationFrame(frame);
     };
   }, [ref, compute]);
+}
+
+/**
+ * Dock-style fish-eye: the item under the cursor grows, its neighbours grow
+ * less the further away they are, and they slide apart so nothing overlaps.
+ * Groups are the `[data-dock]` elements inside `ref` (each needs `relative`),
+ * and their items are the `[data-dock-item]` elements inside each group.
+ * Only the hovered group reacts. Used by `DockWord` to magnify letters.
+ */
+function useDockMagnify(ref: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const container = ref.current;
+    if (!container) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Size of the letter right under the cursor (1.6 = 160%)
+    const MAX_SCALE = 1.6;
+    // How far the lens reaches, in multiples of the word's font size.
+    // Bigger = more letters grow, smaller = tighter lens.
+    const RADIUS_IN_EM = 1.5;
+
+    const cleanups: (() => void)[] = [];
+
+    container.querySelectorAll<HTMLElement>("[data-dock]").forEach((group) => {
+      const items = Array.from(
+        group.querySelectorAll<HTMLElement>("[data-dock-item]"),
+      );
+      let frame = 0;
+      let cursorX = 0;
+
+      const update = () => {
+        frame = 0;
+        // Scales with the text, so small and large words feel the same
+        const RADIUS =
+          parseFloat(getComputedStyle(group).fontSize) * RADIUS_IN_EM;
+
+        // offsetLeft/offsetWidth ignore transforms, so measuring while
+        // items are scaled doesn't make the effect jitter
+        const scales = items.map((item) => {
+          const centre = item.offsetLeft + item.offsetWidth / 2;
+          const distance = Math.abs(cursorX - centre);
+          const falloff =
+            distance < RADIUS
+              ? (1 + Math.cos((Math.PI * distance) / RADIUS)) / 2
+              : 0;
+          return 1 + (MAX_SCALE - 1) * falloff;
+        });
+
+        // Extra width each item gained by scaling
+        const growth = items.map(
+          (item, i) => (scales[i] - 1) * item.offsetWidth,
+        );
+        const total = growth.reduce((sum, g) => sum + g, 0);
+
+        // Each letter moves right by half of what grew on its left and left
+        // by half of what grew on its right, keeping the gaps between them
+        let grownLeft = 0;
+        items.forEach((item, i) => {
+          const grownRight = total - grownLeft - growth[i];
+          const shift = (grownLeft - grownRight) / 2;
+          item.style.transform = `translateX(${shift}px) scale(${scales[i]})`;
+          grownLeft += growth[i];
+        });
+      };
+
+      const onMove = (e: PointerEvent) => {
+        if (e.pointerType !== "mouse") return;
+        cursorX = e.clientX - group.getBoundingClientRect().left;
+        if (!frame) frame = requestAnimationFrame(update);
+      };
+
+      // The CSS transition on each letter in `DockWord` eases them back
+      const onLeave = () => {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        items.forEach((item) => (item.style.transform = ""));
+      };
+
+      group.addEventListener("pointermove", onMove);
+      group.addEventListener("pointerleave", onLeave);
+      cleanups.push(() => {
+        group.removeEventListener("pointermove", onMove);
+        group.removeEventListener("pointerleave", onLeave);
+        cancelAnimationFrame(frame);
+      });
+    });
+
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [ref]);
+}
+
+/**
+ * A word whose letters get the fish-eye from `useDockMagnify`.
+ * Screen readers read `text` once; the split letters are hidden from them.
+ */
+function DockWord({ text, size, padding, widthFull }: TechStack) {
+  return (
+    <div
+      data-dock
+      className={`relative ${magnifierEffect(size, padding, widthFull)}`}
+    >
+      <span className="sr-only">{text}</span>
+      {/* nowrap: each letter is its own inline-block, which the browser may
+          otherwise break between, stacking narrow words one letter per line */}
+      <span aria-hidden="true" className="whitespace-nowrap">
+        {Array.from(text).map((letter, i) => (
+          <span
+            key={i}
+            data-dock-item
+            // origin-bottom: letters grow upward from the baseline, like the Dock
+            className="inline-block origin-bottom whitespace-pre transition-transform duration-150 ease-out"
+          >
+            {letter}
+          </span>
+        ))}
+      </span>
+    </div>
+  );
 }
 /**
  * END OF CLAUDE
@@ -193,7 +311,44 @@ function Intro() {
   );
 }
 
+type TechStack = {
+  text: string;
+  size: string;
+  padding: number;
+  widthFull?: boolean;
+};
+
+// Desktop tech list, one inner array per row (see `magnifierEffect`)
+const TECH_STACK_ROWS: TechStack[][] = [
+  [
+    { text: "Python", size: "3xl", padding: 4, widthFull: false },
+    { text: "Typescript", size: "7xl", padding: 8 },
+    { text: "PHP", size: "3xl", padding: 2 },
+    { text: "Javascript", size: "5xl", padding: 4 },
+    { text: "Solidity", size: "4xl", padding: 2 },
+    { text: "Ruby", size: "3xl", padding: 4, widthFull: false },
+  ],
+  [
+    { text: "NextJS", size: "7xl", padding: 8, widthFull: false },
+    { text: "Ruby On Rails", size: "3xl", padding: 2 },
+    { text: "NestJS", size: "7xl", padding: 8 },
+    { text: "Shadcn", size: "5xl", padding: 4 },
+    { text: "Tailwind", size: "5xl", padding: 4, widthFull: false },
+  ],
+  [
+    { text: "Jira", size: "3xl", padding: 4 },
+    { text: "PostgreSQL", size: "7xl", padding: 8 },
+    { text: "MySQL", size: "3xl", padding: 2 },
+    { text: "Postman", size: "7xl", padding: 8 },
+    { text: "Retool", size: "5xl", padding: 4 },
+  ],
+];
+
 function TechStacks() {
+  const dockRef = useRef<HTMLDivElement>(null);
+
+  useDockMagnify(dockRef);
+
   return (
     <section
       id="tech-stacks"
@@ -252,31 +407,17 @@ function TechStacks() {
           </div>
         </div>
 
-        <div className="hidden lg:block">
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
-            <div className={magnifierEffect("3xl", 4, false)}>Python</div>
-            <div className={magnifierEffect("7xl", 8)}>Typescript</div>
-            <div className={magnifierEffect("3xl", 2)}>PHP</div>
-            <div className={magnifierEffect("5xl", 4)}>Javascript</div>
-            <div className={magnifierEffect("4xl", 2)}>Solidity</div>
-            <div className={magnifierEffect("3xl", 4, false)}>Ruby</div>
-          </div>
-
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
-            <div className={magnifierEffect("7xl", 8, false)}>NextJS</div>
-            <div className={magnifierEffect("3xl", 2)}>Ruby On Rails</div>
-            <div className={magnifierEffect("7xl", 8)}>NestJS</div>
-            <div className={magnifierEffect("5xl", 4)}>Shadcn</div>
-            <div className={magnifierEffect("5xl", 4, false)}>Tailwind</div>
-          </div>
-
-          <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
-            <div className={magnifierEffect("3xl", 4)}>Jira</div>
-            <div className={magnifierEffect("7xl", 8)}>PostgreSQL</div>
-            <div className={magnifierEffect("3xl", 2)}>MySQL</div>
-            <div className={magnifierEffect("7xl", 8)}>Postman</div>
-            <div className={magnifierEffect("5xl", 4)}>Retool</div>
-          </div>
+        <div ref={dockRef} className="hidden lg:block">
+          {TECH_STACK_ROWS.map((row, i) => (
+            <div
+              key={i}
+              className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row"
+            >
+              {row.map((tech) => (
+                <DockWord key={tech.text} {...tech} />
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -532,6 +673,11 @@ function ProjectThree() {
           </p>
 
           <p className="mt-5 font-light text-wrap">
+            <i>
+              Transforming a traditional game with the aid of web3 technologies.
+            </i>
+            <br />
+            <br />
             Play the Game.
             <br />
             Own the Rewards.
@@ -609,7 +755,7 @@ function ProjectFour() {
           {/* FINAL size of "RWA" (where it settles): the text-* classes below,
               text-5xl on mobile and lg:text-6xl on large screens. */}
           <span
-            className="inline-block pt-36 pl-4 text-5xl font-light tracking-widest lg:pt-26 lg:text-8xl lg:tracking-widest"
+            className="inline-block pt-42 pl-4 text-5xl font-light tracking-widest lg:pt-30 lg:text-8xl lg:tracking-widest"
             style={{
               /**
                * INITIAL size of "RWA": the `5` is how much bigger it starts
@@ -635,7 +781,7 @@ function ProjectFour() {
                 "translateY(calc(min(1, (1 - var(--p4-enter, 1)) / 0.3) * 1rem))",
             }}
           >
-            A non financial-product-based Real World Asset Tokenization
+            A non-financial product based Real World Asset Tokenization
             Marketplace. <br />
             (Coming Soon)
           </span>
