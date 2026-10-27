@@ -139,12 +139,24 @@ function TechStacks() {
     >
       <div className="flex h-[10vh] flex-col items-center justify-center pt-20 text-center lg:flex-row">
         <div className="hidden text-center text-5xl font-light tracking-wide lg:block">
-          <div className="dark:text-foreground text-foreground">
+          <div className="dark:text-background text-background">
             <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
-              <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
-                <span className="block backface-hidden">TECH</span>
-                <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
+              <span className="dark:bg-foreground relative inline-block w-full rounded-full bg-emerald-500 px-10 py-5">
+                <span
+                  className="invisible block whitespace-nowrap"
+                  aria-hidden="true"
+                >
                   STACKS
+                </span>
+
+                <span className="absolute inset-0 inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
+                  <span className="flex h-full w-full items-center justify-center whitespace-nowrap backface-hidden">
+                    TECH
+                  </span>
+
+                  <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center whitespace-nowrap backface-hidden">
+                    STACKS
+                  </span>
                 </span>
               </span>
             </span>
@@ -182,8 +194,8 @@ function TechStacks() {
           <div className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row">
             <div className={magnifierEffect("3xl", 4, false)}>Python</div>
             <div className={magnifierEffect("7xl", 8)}>Typescript</div>
+            <div className={magnifierEffect("3xl", 2)}>PHP</div>
             <div className={magnifierEffect("5xl", 4)}>Javascript</div>
-            <div className={magnifierEffect("3xl", 2, false)}>PHP</div>
             <div className={magnifierEffect("4xl", 2)}>Solidity</div>
             <div className={magnifierEffect("3xl", 4, false)}>Ruby</div>
           </div>
@@ -221,7 +233,7 @@ function FeatureProjects() {
       className="flex h-screen flex-col justify-center lg:flex-none"
     >
       <div className="flex h-[90vh] flex-col items-center justify-center text-center lg:flex-row">
-        <span className="group relative inline-block cursor-text text-5xl font-light tracking-wide transition-all duration-300 lg:text-6xl">
+        <span className="group relative inline-block cursor-text text-5xl font-light tracking-widest transition-all duration-300 lg:text-6xl lg:tracking-[.45rem]">
           FEATURE PROJECTS
           <span className="absolute -bottom-2 left-0 h-0.5 w-0 bg-current transition-all duration-300 group-hover:w-full lg:h-0.75" />
         </span>
