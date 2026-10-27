@@ -35,6 +35,32 @@ const magnifierEffect = (
   return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in transition-transform duration-300 ease-in-out hover:scale-110`;
 };
 
+function BounceToScrollDown({
+  sectionName,
+  sectionId,
+}: {
+  sectionName: string;
+  sectionId: string;
+}) {
+  return (
+    <div className="flex h-[10vh] flex-col items-center justify-center">
+      <Button
+        title={`View ${sectionName}`}
+        onClick={(e) => {
+          e.preventDefault();
+          document
+            .getElementById(`${sectionId}`)
+            ?.scrollIntoView({ behavior: "smooth" });
+          window.location.hash = `${sectionId}`;
+        }}
+        className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
+      >
+        <MoveDown className="h-5 w-5 text-white" />
+      </Button>
+    </div>
+  );
+}
+
 export default function V2() {
   return (
     <main>
@@ -100,21 +126,7 @@ function Intro() {
         </div>
       </div>
 
-      <div className="flex h-[10vh] flex-col items-center justify-center">
-        <Button
-          title="View Tech Stacks"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("tech-stacks")
-              ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "tech-stacks";
-          }}
-          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
-        >
-          <MoveDown className="h-5 w-5 text-white" />
-        </Button>
-      </div>
+      <BounceToScrollDown sectionName="Tech Stacks" sectionId="tech-stacks" />
     </section>
   );
 }
@@ -194,21 +206,10 @@ function TechStacks() {
         </div>
       </div>
 
-      <div className="flex h-[10vh] flex-col items-center justify-center">
-        <Button
-          title="View Feature Projects"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("feature-projects")
-              ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "feature-projects";
-          }}
-          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
-        >
-          <MoveDown className="h-5 w-5 text-white" />
-        </Button>
-      </div>
+      <BounceToScrollDown
+        sectionName="Feature Projects"
+        sectionId="feature-projects"
+      />
     </section>
   );
 }
@@ -226,21 +227,10 @@ function FeatureProjects() {
         </span>
       </div>
 
-      <div className="flex h-[10vh] flex-col items-center justify-center">
-        <Button
-          title="View First Project"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("feature-project-one")
-              ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "feature-project-one-two";
-          }}
-          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
-        >
-          <MoveDown className="h-5 w-5 text-white" />
-        </Button>
-      </div>
+      <BounceToScrollDown
+        sectionName="First Project"
+        sectionId="feature-project-one"
+      />
     </section>
   );
 }
@@ -281,21 +271,10 @@ function ProjectOne() {
         </div>
       </div>
 
-      <div className="flex h-[10vh] flex-col items-center justify-center">
-        <Button
-          title="View Second Project"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("feature-project-two")
-              ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "feature-project-two";
-          }}
-          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
-        >
-          <MoveDown className="h-5 w-5 text-white" />
-        </Button>
-      </div>
+      <BounceToScrollDown
+        sectionName="Second Project"
+        sectionId="feature-project-two"
+      />
     </section>
   );
 }
@@ -427,21 +406,7 @@ function ProjectThree() {
         </div>
       </div>
 
-      <div className="flex h-[10vh] flex-col items-center justify-center">
-        <Button
-          title="View Experience"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("resume")
-              ?.scrollIntoView({ behavior: "smooth" });
-            window.location.hash = "resume";
-          }}
-          className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
-        >
-          <MoveDown className="h-5 w-5 text-white" />
-        </Button>
-      </div>
+      <BounceToScrollDown sectionName="Experience" sectionId="resume" />
     </section>
   );
 }
