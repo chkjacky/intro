@@ -2,8 +2,29 @@ import { Button } from "@/components/ui/button";
 import { MoveUp } from "lucide-react";
 import Link from "next/link";
 import Contacts from "./Contacts";
+import { useSyncExternalStore } from "react";
+
+// The query string never changes after load, so there's nothing to subscribe to
+const subscribe = () => () => {};
+
+/**
+ * True when the page was opened with `?from=linkedin` (any case).
+ * Always false in the static build, so the exported HTML shows WhatsApp and
+ * LinkedIn visitors see it swap to Telegram once the page hydrates.
+ */
+function useFromLinkedIn() {
+  return useSyncExternalStore(
+    subscribe,
+    () =>
+      new URLSearchParams(window.location.search).get("from")?.toLowerCase() ===
+      "linkedin",
+    () => false,
+  );
+}
 
 export default function Resume() {
+  const fromLinkedIn = useFromLinkedIn();
+
   return (
     <>
       <section
@@ -91,7 +112,11 @@ export default function Resume() {
           <iframe
             loading="lazy"
             className="absolute top-0 left-0 m-0 h-100 w-full border-2 p-0 sm:h-130 md:h-160 lg:h-250" // Adjust the iframe size
-            src="https://www.canva.com/design/DAHRViysJv0/MLvT85SVggV3UsWe_VNhKQ/view?embed"
+            src={
+              fromLinkedIn
+                ? "https://www.canva.com/design/DAHZL9g240g/ViyTPO192sSfj8I9XHJFNw/view?embed" // NO LINK
+                : "https://www.canva.com/design/DAHZLzlnqB4/HhTTCYCK-YHUlZrnb5jUfQ/view?embed" // With Genting Malaysia
+            }
             allowFullScreen
             allow="fullscreen"
           />
@@ -101,7 +126,11 @@ export default function Resume() {
         </div>
 
         <Link
-          href="https://www.canva.com/design/DAHRViysJv0/MLvT85SVggV3UsWe_VNhKQ/view?utm_content=DAHRViysJv0&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h61157b8fd4"
+          href={
+            fromLinkedIn
+              ? "https://www.canva.com/design/DAHZL9g240g/2PNuGsxaouJVXwzDZ1Y4lQ/view?utm_content=DAHZL9g240g&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h982491d841" // NO LINK
+              : "https://www.canva.com/design/DAHZLzlnqB4/YnuB57-WWVBLUzor3WdmBg/view?utm_content=DAHZLzlnqB4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h258537e686" // With Genting Malaysia
+          }
           target="_blank"
           rel="noopener noreferrer"
           className="lg:text-foreground dark:text-foreground mx-5 mt-2 block text-blue-600 underline underline-offset-6 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
