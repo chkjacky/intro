@@ -19,7 +19,10 @@ export default function Home() {
 
   return (
     <>
-      <nav id="top" className="absolute flex w-full items-center justify-center p-8 md:justify-end lg:p-10">
+      <nav
+        id="top"
+        className="flex h-[10vh] w-full items-center justify-center md:justify-end lg:px-10"
+      >
         <div className="hidden space-x-3 text-sm md:block">
           <span>
             Eyes need {currentTheme === "light" ? "to rest?" : "some light?"}
