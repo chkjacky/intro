@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+
 import "./globals.css";
-import { ThemeProvider } from "./providers/ThemeProvider";
+
 import IdleScrollHint from "@/components/IdleScrollHint";
+
+import { ThemeProvider } from "./providers/ThemeProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${poppins.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

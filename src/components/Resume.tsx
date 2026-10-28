@@ -1,8 +1,10 @@
-import { Button } from "@/components/ui/button";
 import { MoveUp } from "lucide-react";
 import Link from "next/link";
-import Contacts from "./Contacts";
 import { useSyncExternalStore } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import Contacts from "./Contacts";
 
 /**
  * CLAUDE
