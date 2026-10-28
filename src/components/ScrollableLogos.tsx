@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 type RotatingFlagProps = {
   flagImage: string;
@@ -15,65 +15,57 @@ const CircularLogo: React.FC<RotatingFlagProps> = ({
   translationFactor = 2,
 }) => {
   const flagRef = useRef<HTMLDivElement>(null);
-  const lastScrollYRef = useRef(0);
-  const [rotation, setRotation] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState<"up" | "down" | null>(
-    null,
-  );
 
-  // 1 - Important: Set the initial position of the first circle before scrolling happen
   useEffect(() => {
-    if (flagRef.current) {
-      flagRef.current.style.transform = `translate(${initialX}px, 0) rotate(0deg)`;
-    }
-  }, [initialX]);
+    const flag = flagRef.current;
+    if (!flag) return;
 
-  // 2 - Determine self rotation when user scrolls
-  useEffect(() => {
+    /**
+     * Kept in plain variables instead of state and written straight to the
+     * DOM, so scrolling never re-renders React (the cause of lag on mobile)
+     */
+    let lastScrollY = 0;
+    let rotation = 0;
+
+    // 1 - Important: Set the initial position of the first circle before scrolling happen
+    flag.style.transform = `translate(${initialX}px, 0) rotate(0deg)`;
+
+    // 2 - Determine self rotation when user scrolls
     const handleScroll = () => {
-      if (flagRef.current) {
-        const scrollY = window.scrollY;
+      const scrollY = window.scrollY;
 
-        // Determine scroll direction
-        if (scrollY > lastScrollYRef.current) {
-          setScrollDirection("down");
-        } else if (scrollY < lastScrollYRef.current) {
-          setScrollDirection("up");
-        }
+      // Calculate scroll rotation and translation
+      /**
+       * Determining the scroll rotation
+       *
+       * Formula:
+       * 		scrollY = the current scroll Y position
+       * 		rotationSpeed = as is
+       * 		k = the factor or val to determine the speed
+       * 					the higher the value, the slower the self rotation
+       */
+      const scrollRotation = scrollY / (rotationSpeed * 7);
 
-        lastScrollYRef.current = scrollY;
+      const updatedTranslateX = initialX + scrollY / translationFactor;
 
-        // Calculate scroll rotation and translation
-        /**
-         * Determining the scroll rotation
-         *
-         * Formula:
-         * 		scrollY = the current scroll Y position
-         * 		rotationSpeed = as is
-         * 		k = the factor or val to determine the speed
-         * 					the higher the value, the slower the self rotation
-         */
-        const scrollRotation = scrollY / (rotationSpeed * 7);
-
-        const updatedTranslateX = initialX + scrollY / translationFactor;
-
-        if (scrollDirection === "down") {
-          setRotation((prevRotation) => prevRotation + scrollRotation); // Clockwise
-        } else if (scrollDirection === "up") {
-          setRotation((prevRotation) => prevRotation - scrollRotation); // Counterclockwise
-        }
-
-        // Apply the transform style for the flag
-        flagRef.current.style.transform = `translate(${updatedTranslateX}px, 0) rotate(${rotation}deg)`;
+      if (scrollY > lastScrollY) {
+        rotation += scrollRotation; // Clockwise
+      } else if (scrollY < lastScrollY) {
+        rotation -= scrollRotation; // Counterclockwise
       }
+
+      lastScrollY = scrollY;
+
+      // Apply the transform style for the flag
+      flag.style.transform = `translate(${updatedTranslateX}px, 0) rotate(${rotation}deg)`;
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [rotation, initialX, rotationSpeed, translationFactor, scrollDirection]);
+  }, [initialX, rotationSpeed, translationFactor]);
 
   return (
     <div
@@ -85,12 +77,18 @@ const CircularLogo: React.FC<RotatingFlagProps> = ({
 };
 
 const LongPill: React.FC = () => {
-  const [width, setWidth] = useState(300);
+  const pillRef = useRef<HTMLDivElement>(null);
 
-  // 1 - Important: Set the default width of pill when screen loads based on screen size
   useEffect(() => {
-    if (typeof window === "undefined") return; // Avoid accessing window during SSR
+    const pill = pillRef.current;
+    if (!pill) return;
 
+    // Written straight to the DOM, so scrolling never re-renders React
+    const setWidth = (width: number) => {
+      pill.style.width = `${width}px`;
+    };
+
+    // 1 - Important: Set the default width of pill when screen loads based on screen size
     if (window.innerWidth <= 640) {
       setWidth(0);
     } else if (window.innerWidth <= 768) {
@@ -101,13 +99,9 @@ const LongPill: React.FC = () => {
       // setWidth(300);
       setWidth(100);
     }
-  }, []);
 
-  // 2 - Determine pill growth when user scrolls
-  useEffect(() => {
+    // 2 - Determine pill growth when user scrolls
     const handleScroll = () => {
-      if (typeof window === "undefined") return 0; // Avoid accessing window during SSR
-
       let newWidth: number;
       const scrollY = window.scrollY;
       /**
@@ -126,25 +120,26 @@ const LongPill: React.FC = () => {
       } else if (window.innerWidth <= 1024) {
         newWidth = 100 + (scrollY - 100) / 15.5;
       } else {
-        // newWidth = width + (scrollY - 30) / 2.95;
-        newWidth = width + (scrollY - 30) / 7.95;
+        // 300 is the pill's starting width, before the screen-size default above
+        // newWidth = 300 + (scrollY - 30) / 2.95;
+        newWidth = 300 + (scrollY - 30) / 7.95;
       }
 
       setWidth(newWidth);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Must not add width into dependency if not won't work!
+  }, []);
 
   return (
     <div
+      ref={pillRef}
       className="relative h-32 rounded-r-full bg-[#9ae9fa] sm:h-36 md:h-44 lg:h-52"
-      style={{ width: `${width}px` }}
+      style={{ width: "300px" }}
     >
       <div className="absolute right-2.5 my-3.5 flex h-24 w-24 items-center justify-center rounded-full bg-blue-900 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:h-44 lg:w-44">
         <span className="text-8xl text-[#9ae9fa]">
