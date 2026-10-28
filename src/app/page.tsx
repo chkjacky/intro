@@ -1,10 +1,11 @@
 "use client";
 
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
 import Resume from "@/components/Resume";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import V2 from "@/components/v2";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 
 export default function Home() {
   const { theme } = useTheme();

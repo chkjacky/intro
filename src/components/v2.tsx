@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { Mouse, MoveDown } from "lucide-react";
 import Image from "next/image";
-import { type RefObject, useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
+
+import { Button } from "@/components/ui/button";
+
 import AIAgentArcade from "./arcades/AIAgentArcade";
 import VolksmarketArcade from "./arcades/VolksmarketArcade";
 import Contacts from "./Contacts";
