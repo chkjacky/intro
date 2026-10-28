@@ -163,7 +163,7 @@ export default function Resume() {
               document
                 .getElementById("top")
                 ?.scrollIntoView({ behavior: "smooth" });
-              window.location.hash = "top";
+              history.replaceState(null, "", "#top");
             }}
             className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
           >

@@ -239,7 +239,7 @@ function BounceToScrollDown({
           document
             .getElementById(`${sectionId}`)
             ?.scrollIntoView({ behavior: "smooth" });
-          window.location.hash = `${sectionId}`;
+          history.replaceState(null, "", `#${sectionId}`);
         }}
         className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
       >
@@ -586,22 +586,25 @@ function ProjectTwo() {
       </div>
 
       <div className="flex h-[10vh] flex-col items-center justify-center">
-        <span className="relative flex h-9 w-9">
-          <span className="bg-muted-foreground/60 dark:bg-bg-muted-foreground/30 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
-          <Button
-            title="Scroll to View Third Project"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .getElementById("feature-project-three")
-                ?.scrollIntoView({ behavior: "smooth" });
-              window.location.hash = "feature-project-three";
-            }}
-            className="bg-muted-foreground/60 dark:bg-input relative inline-flex h-9 w-9 rounded-full border border-white p-2 text-white hover:cursor-pointer"
-          >
-            <Mouse className="animate-bounce text-white" />
-          </Button>
-        </span>
+        {/* PULSING EFFECT */}
+        {/* <span className="relative flex h-9 w-9"> 
+        <span className="bg-muted-foreground/60 dark:bg-bg-muted-foreground/30 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span> */}
+
+        <Button
+          title="Scroll to View Third Project"
+          onClick={(e) => {
+            e.preventDefault();
+            document
+              .getElementById("feature-project-three")
+              ?.scrollIntoView({ behavior: "smooth" });
+            history.replaceState(null, "", "#feature-project-three");
+          }}
+          className="bg-muted-foreground/60 dark:bg-input relative inline-flex h-9 w-9 rounded-full text-white hover:cursor-pointer"
+        >
+          <Mouse className="animate-scroll-flick size-5 text-white motion-reduce:animate-none" />
+        </Button>
+
+        {/* </span> */}
       </div>
     </section>
   );
