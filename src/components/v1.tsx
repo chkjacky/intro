@@ -168,7 +168,7 @@ export default function V1() {
               document
                 .getElementById("resume")
                 ?.scrollIntoView({ behavior: "smooth" });
-              window.location.hash = "resume";
+              history.replaceState(null, "", "#resume");
             }}
             className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
           >
@@ -186,7 +186,7 @@ export default function V1() {
                 document
                   .getElementById("resume")
                   ?.scrollIntoView({ behavior: "smooth" });
-                window.location.hash = "resume";
+                history.replaceState(null, "", "#resume");
               }}
             >
               &middot;&nbsp;Won A Talent's Résumé&nbsp;&middot;&nbsp;
@@ -250,7 +250,7 @@ export default function V1() {
               document
                 .getElementById("main")
                 ?.scrollIntoView({ behavior: "smooth" });
-              window.location.hash = "resume";
+              history.replaceState(null, "", "#resume");
             }}
             className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
           >

@@ -48,6 +48,25 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+@theme {
+  /* Quick up-down flick, then a pause, like a scroll gesture */
+  --animate-scroll-flick: scroll-flick 3.4s ease-out infinite;
+
+  @keyframes scroll-flick {
+    0%,
+    24%,
+    100% {
+      transform: translateY(0);
+    }
+    8% {
+      transform: translateY(-25%);
+    }
+    16% {
+      transform: translateY(20%);
+    }
+  }
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
