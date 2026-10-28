@@ -70,7 +70,7 @@ const CircularLogo: React.FC<RotatingFlagProps> = ({
   return (
     <div
       ref={flagRef}
-      className="aspect-square w-32 rounded-full bg-cover bg-center shadow-md transition-transform duration-75 ease-out sm:w-36 md:w-44 lg:w-52"
+      className="aspect-square w-32 rounded-full bg-cover bg-center shadow-md will-change-transform sm:w-36 md:w-44 lg:w-52 pointer-fine:transition-transform pointer-fine:duration-75 pointer-fine:ease-out"
       style={{ backgroundImage: `url(${flagImage})` }}
     />
   );
@@ -83,9 +83,13 @@ const LongPill: React.FC = () => {
     const pill = pillRef.current;
     if (!pill) return;
 
-    // Written straight to the DOM, so scrolling never re-renders React
+    /**
+     * Written straight to the DOM, so scrolling never re-renders React.
+     * The pill is always 200vw wide and slides right until `width` of it
+     * shows, which looks the same as growing but skips layout and repaint.
+     */
     const setWidth = (width: number) => {
-      pill.style.width = `${width}px`;
+      pill.style.transform = `translateX(${width - pill.offsetWidth}px)`;
     };
 
     // 1 - Important: Set the default width of pill when screen loads based on screen size
@@ -138,8 +142,8 @@ const LongPill: React.FC = () => {
   return (
     <div
       ref={pillRef}
-      className="relative h-32 rounded-r-full bg-[#9ae9fa] sm:h-36 md:h-44 lg:h-52"
-      style={{ width: "300px" }}
+      className="relative h-32 rounded-r-full bg-[#9ae9fa] will-change-transform sm:h-36 md:h-44 lg:h-52"
+      style={{ width: "200vw", transform: "translateX(calc(300px - 200vw))" }}
     >
       <div className="absolute right-2.5 my-3.5 flex h-24 w-24 items-center justify-center rounded-full bg-blue-900 sm:h-28 sm:w-28 md:h-36 md:w-36 lg:h-44 lg:w-44">
         <span className="text-8xl text-[#9ae9fa]">
