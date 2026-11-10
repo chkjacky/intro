@@ -35,22 +35,22 @@ export const INTRO = {
  * so it fits on one line on desktop.
  */
 export const TECH_VALUES: Record<string, string> = {
-  Python: "AI agents & automation: hours of manual work saved",
-  Typescript: "Type-safe code: fewer bugs and an easier handover",
-  PHP: "Legacy modernisation: upgrade your system, no full rebuild",
-  Javascript: "Interactive web apps: visitors stay engaged longer",
-  Solidity: "Smart contracts: safe payments and digital ownership",
-  Ruby: "Reliable backends: systems built to last for years",
-  NextJS: "SEO-friendly websites: fast and easy to find on Google",
-  "Ruby On Rails": "Rapid MVPs: a working product to be delivered in weeks",
-  NestJS: "Scalable APIs: systems that grow with your business",
+  Python: "AI agents & automation: repetitive work handled for you",
+  Typescript: "Type-safe code: fewer bugs, easier for any team to maintain",
+  PHP: "Legacy modernisation: upgrade old systems without a rebuild",
+  Javascript: "Interactive UIs: smooth pages that keep visitors engaged",
+  Solidity: "Smart contracts: secure payments and provable ownership",
+  Ruby: "Reliable backends: dependable systems built to last",
+  NextJS: "Fast, SEO-ready websites: easy to find on Google",
+  "Ruby On Rails": "Rapid MVPs: a working product in weeks, not months",
+  NestJS: "Scalable APIs: back-ends that grow with your business",
   Shadcn: "Accessible UI components: clean screens anyone can use",
-  Tailwind: "Responsive design: your brand right on every screen",
-  Jira: "Agile sprints: clear updates on what's shipping",
-  PostgreSQL: "Secure databases: financial records kept accurate",
-  MySQL: "Cost-effective databases: everyday data stored reliably",
-  Postman: "Tested API integrations: your partners' systems connected",
-  Retool: "Custom internal tools: ready for your staff in days",
+  Tailwind: "Responsive design: your brand looks right on every screen",
+  Jira: "Agile sprints: clear progress you can track every week",
+  PostgreSQL: "Vector-ready database: AI search and business data in one",
+  MySQL: "Proven SQL database: everyday data, stored reliably",
+  Postman: "API testing: partner integrations that just work",
+  Retool: "Internal tools: custom dashboards for your team in days",
 };
 
 export type ProjectImpactCopy = {
@@ -59,6 +59,13 @@ export type ProjectImpactCopy = {
   /** Shown highlighted in the project's accent colour */
   outcome: string;
   role: string;
+  /**
+   * One short line on the FRONT of the card, so the result is visible
+   * without flipping. Keep it under ~35 characters.
+   */
+  highlight: string;
+  /** True for unreleased projects: `highlight` shows as a status pill */
+  isUnreleasedProject?: boolean;
 };
 
 /**
@@ -73,12 +80,15 @@ export const PROJECT_IMPACT = {
     built: "A prediction market where every outcome settles on verified facts.",
     outcome: "Finalising, launching soon",
     role: "Independent Fullstack Engineer",
+    highlight: "Launching soon",
+    isUnreleasedProject: true,
   },
   aiAgent: {
     problem: "Accountants lose hours sorting and keying in documents by hand.",
     built: "An AI agent that reads, sorts and manages accounting documents.",
     outcome: "~80% less manual data entry",
     role: "Fullstack Engineer · Consultant",
+    highlight: "80% manual data entry reduced",
   },
   web3Games: {
     problem:
@@ -88,6 +98,7 @@ export const PROJECT_IMPACT = {
     outcome:
       "US $1,000+ organic revenue in the MVP's first week · Client costs and operational workload cut by 70%",
     role: "Fullstack Engineer · Product Manager",
+    highlight: "US $1,000+ revenue in week one",
   },
   rwa: {
     problem:
@@ -96,6 +107,8 @@ export const PROJECT_IMPACT = {
       "A marketplace that turns those assets into tradeable digital tokens.",
     outcome: "In design, launch date to be announced",
     role: "Founder · Fullstack Engineer · Product Manager",
+    highlight: "In design",
+    isUnreleasedProject: true,
   },
 } satisfies Record<string, ProjectImpactCopy>;
 

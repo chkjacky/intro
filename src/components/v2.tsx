@@ -444,7 +444,7 @@ function TechCaption({ tech }: { tech: string | null }) {
   return (
     <div
       aria-live="polite"
-      className="mx-4 mt-5 flex flex-col items-center justify-start text-center text-base font-light tracking-wide lg:mt-0 lg:justify-center lg:text-xl"
+      className="mx-4 mt-5 flex flex-col items-center justify-start text-center text-lg font-light tracking-wide lg:mt-0 lg:justify-center lg:text-xl"
     >
       {tech ? (
         <div key={tech} className="flex flex-col items-center">
@@ -459,7 +459,7 @@ function TechCaption({ tech }: { tech: string | null }) {
             className="bg-foreground/40 animate-in zoom-in-0 fill-mode-backwards my-2 block h-px w-16 delay-150 duration-400 ease-out"
           />
 
-          <span className="animate-in fade-in slide-in-from-bottom-2 fill-mode-backwards block delay-300 duration-400 ease-out">
+          <span className="animate-in fade-in slide-in-from-bottom-2 fill-mode-backwards block capitalize delay-300 duration-400 ease-out">
             {TECH_VALUES[tech]}
           </span>
         </div>
@@ -676,6 +676,19 @@ function ProjectImpact({
           className={`col-start-1 row-start-1 mx-5 flex flex-col justify-center gap-y-3 backface-hidden lg:mx-0 ${alignment}`}
         >
           {children}
+
+          {impact.isUnreleasedProject ? (
+            <span className="border-foreground/30 text-foreground/90 rounded-full border px-2.5 py-0.5 text-xs tracking-[.2em] uppercase">
+              {impact.highlight}
+            </span>
+          ) : (
+            <span
+              className={`text-sm font-medium tracking-wide uppercase lg:text-base ${accentClassName}`}
+            >
+              {impact.highlight}
+            </span>
+          )}
+
           <span className="text-foreground flex items-center text-[0.65rem] font-medium tracking-[.25em] uppercase">
             See the impact&nbsp;
             <RotateCw className="h-3 w-3" />
@@ -1015,7 +1028,7 @@ function ProjectFour() {
           {/* FINAL size of "RWA" (where it settles): the text-* classes below,
               text-5xl on mobile and lg:text-6xl on large screens. */}
           <span
-            className="inline-block pt-42 pl-4 text-5xl font-light tracking-widest lg:pt-30 lg:text-8xl lg:tracking-widest"
+            className="inline-block pt-76 pl-4 text-5xl font-light tracking-widest lg:pt-72 lg:text-8xl lg:tracking-widest"
             style={{
               /**
                * INITIAL size of "RWA": the `5` is how much bigger it starts
@@ -1029,7 +1042,7 @@ function ProjectFour() {
           </span>
 
           <div
-            className="mt-10 flex w-full justify-center px-4 font-light lg:mt-5"
+            className="mt-3 flex w-full justify-center px-4 font-light lg:mt-5"
             style={{
               /**
                * Hidden while "RWA" is shrinking, then fades in and rises 1rem
@@ -1046,7 +1059,7 @@ function ProjectFour() {
               accentClassName="text-red-500"
             >
               <p>
-                A marketplace to own and trade shares of real-world items.
+                A marketplace to trade shares of real-world assets.
                 <br />
                 (Coming Soon)
               </p>
