@@ -22,16 +22,16 @@ export default function Home() {
     <>
       <nav
         id="top"
-        className="flex h-[10vh] w-full items-center justify-center md:justify-end lg:px-10"
+        className="flex h-[10vh] w-full items-center justify-center lg:justify-end lg:px-10"
       >
-        <div className="hidden space-x-3 text-sm md:block">
+        <div className="hidden space-x-3 text-sm lg:block">
           <span>
             Eyes need {currentTheme === "light" ? "to rest?" : "some light?"}
           </span>
           <ThemeSwitch isMediumAndLarger={true} />
         </div>
 
-        <div className="block text-sm md:hidden">
+        <div className="block text-sm lg:hidden">
           <ThemeSwitch isMediumAndLarger={false} />
         </div>
       </nav>

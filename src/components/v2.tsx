@@ -285,7 +285,7 @@ function Intro() {
               height={480}
               alt={"dark"}
               loading="eager"
-              className="rounded-lg"
+              className="w-64 rounded-lg lg:w-95"
             />
           </div>
 
@@ -296,7 +296,7 @@ function Intro() {
               height={480}
               alt={"dark"}
               loading="eager"
-              className="rounded-lg"
+              className="w-64 rounded-lg lg:w-95"
             />
           </div>
         </div>
