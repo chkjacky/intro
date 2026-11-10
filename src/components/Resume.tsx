@@ -5,6 +5,7 @@ import { useSyncExternalStore } from "react";
 import { Button } from "@/components/ui/button";
 
 import Contacts from "./Contacts";
+import HowIWork from "./HowIWork";
 
 /**
  * CLAUDE
@@ -56,6 +57,8 @@ export default function Resume() {
         <div className="mt-10 min-h-[10vh] text-center text-5xl font-light tracking-wide lg:hidden lg:text-left lg:text-6xl">
           PROFESSIONAL EXPERIENCE
         </div>
+
+        <HowIWork />
 
         <div className="flex w-1/2 flex-col gap-y-2 md:w-1/3">
           <div className="flex w-full flex-col gap-y-2 lg:flex-row lg:gap-x-3">
@@ -152,7 +155,7 @@ export default function Resume() {
           className="flex w-full scroll-mt-10 flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2"
         >
           <p className="text-lg font-medium tracking-widest">
-            Feel Free to <br /> Reach Out / Read More <br /> Via
+            Have a problem worth solving? <br /> Let&apos;s talk.
           </p>
 
           <Contacts />

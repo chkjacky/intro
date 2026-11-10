@@ -99,6 +99,14 @@ export const PROJECT_IMPACT = {
   },
 } satisfies Record<string, ProjectImpactCopy>;
 
+/** Resume: "How I work" steps, in order. Keep each detail to one short line */
+export const HOW_I_WORK = [
+  { title: "Understand", detail: "Business problems come first" },
+  { title: "Prototype", detail: "A clickable version that we can hypothesize first" },
+  { title: "Develop & Ship", detail: "Live, tested and ready for real users" },
+  { title: "Measure & iterate", detail: "Improve with real feedback and data" },
+];
+
 /**
  * END OF CLAUDE
  */
