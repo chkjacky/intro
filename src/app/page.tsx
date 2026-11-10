@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Resume from "@/components/Resume";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import V2 from "@/components/v2";
+import VisitorCounter from "@/components/VisitorCounter";
 
 export default function Home() {
   const { theme } = useTheme();
@@ -40,7 +41,9 @@ export default function Home() {
 
       <Resume />
 
-      <footer className="mt-10"></footer>
+      <footer className="mt-10 flex justify-center pb-6">
+        <VisitorCounter />
+      </footer>
     </>
   );
 }

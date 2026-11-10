@@ -1,0 +1,19 @@
+// Firestore security rules for the visitor counter (see COUNTER.md).
+// Deploy by pasting into Firebase console → Firestore Database → Rules → Publish.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /visitors/{uid} {
+      // Each anonymous user can create only their own doc, once, with only a
+      // server timestamp in it. No edits or deletes, so the total can't be faked.
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.keys().hasOnly(['at'])
+                    && request.resource.data.at == request.time;
+      allow update, delete: if false;
+      // count() needs list access. Docs hold only a timestamp, no personal data.
+      allow get, list: if true;
+    }
+    // Everything else stays locked
+  }
+}
