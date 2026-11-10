@@ -43,7 +43,7 @@ export default function Contacts() {
               target="_blank"
               rel="noopener noreferrer"
               title="Connect with Telegram"
-              className="underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+              className="hover:text-link underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
             >
               @jacky_khaw
             </Link>
@@ -66,7 +66,7 @@ export default function Contacts() {
               target="_blank"
               rel="noopener noreferrer"
               title="Connect with WhatsApp"
-              className="underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+              className="hover:text-link underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
             >
               WhatsApp
             </Link>
@@ -90,7 +90,7 @@ export default function Contacts() {
             target="_blank"
             rel="noopener noreferrer"
             title="Connect with LinkedIn"
-            className="underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+            className="hover:text-link underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
           >
             @jackychk
           </Link>
@@ -115,7 +115,7 @@ export default function Contacts() {
             target="_blank"
             rel="noopener noreferrer"
             title="Browse my GitHub"
-            className="underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+            className="hover:text-link underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
           >
             @chkjacky
           </Link>
@@ -138,7 +138,7 @@ export default function Contacts() {
             target="_blank"
             rel="noopener noreferrer"
             title="View project ideas in Notion"
-            className="underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+            className="hover:text-link underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
           >
             Notion
           </Link>

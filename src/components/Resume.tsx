@@ -81,7 +81,7 @@ export default function Resume() {
                 passHref
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+                className="hover:text-link w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
               >
                 <span className="hidden sm:block">
                   Product Management Cert 1
@@ -109,7 +109,7 @@ export default function Resume() {
                 passHref
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+                className="hover:text-link w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
               >
                 <span className="hidden sm:block">
                   Product Management Cert 2
@@ -145,7 +145,7 @@ export default function Resume() {
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="lg:text-foreground dark:text-foreground mx-5 mt-2 block text-blue-600 underline underline-offset-6 transition-all duration-300 hover:text-blue-600 hover:underline dark:hover:text-blue-500"
+          className="lg:text-foreground dark:text-foreground hover:text-link mx-5 mt-2 block underline underline-offset-6 transition-all duration-300 hover:underline"
         >
           View Résumé Externally
         </Link>

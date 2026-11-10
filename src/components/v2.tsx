@@ -314,7 +314,7 @@ function Intro() {
                   ?.scrollIntoView({ behavior: "smooth" });
                 history.replaceState(null, "", "#contacts");
               }}
-              className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground border bg-transparent px-2 underline underline-offset-6 transition-all duration-300 hover:cursor-pointer hover:bg-transparent hover:text-blue-600 hover:underline hover:underline-offset-6 active:border-blue-600 active:bg-blue-600 active:text-white sm:border-0 sm:px-1 sm:active:bg-transparent dark:hover:text-blue-500"
+              className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground hover:text-link active:border-link active:bg-link border bg-transparent px-2 underline underline-offset-6 transition-all duration-300 hover:cursor-pointer hover:bg-transparent hover:underline hover:underline-offset-6 active:text-white sm:border-0 sm:px-1 sm:active:bg-transparent"
             >
               Let&apos;s Talk!
               <span aria-hidden="true" className="relative inline-flex">
@@ -742,12 +742,12 @@ function ProjectOne() {
 
           <div>
             <p className="text-foreground/80 dark:text-foreground font-base text-base leading-relaxed tracking-wide sm:text-xl sm:text-wrap lg:text-2xl">
-              <span className="before:bg-input hidden cursor-grab font-semibold tracking-widest text-[#D1B200] transition-all duration-200 before:absolute before:inset-0 before:right-0 before:left-auto before:w-full before:transition-all before:duration-500 before:ease-in-out before:content-[''] hover:before:w-0 sm:relative sm:inline-block dark:text-[#f1d537] dark:before:bg-white">
+              <span className="before:bg-input text-volksmarket hidden cursor-grab font-semibold tracking-widest transition-all duration-200 before:absolute before:inset-0 before:right-0 before:left-auto before:w-full before:transition-all before:duration-500 before:ease-in-out before:content-[''] hover:before:w-0 sm:relative sm:inline-block dark:before:bg-white">
                 VOLKSMARKET
               </span>
             </p>
 
-            <p className="font-base text-3xl leading-relaxed tracking-widest text-[#D1B200] sm:hidden sm:text-xl sm:text-wrap lg:text-2xl dark:text-[#f1d537]">
+            <p className="font-base text-volksmarket text-3xl leading-relaxed tracking-widest sm:hidden sm:text-xl sm:text-wrap lg:text-2xl">
               Volksmarket
             </p>
           </div>
@@ -755,7 +755,7 @@ function ProjectOne() {
           <ProjectImpact
             impact={PROJECT_IMPACT.volksmarket}
             align="left"
-            accentClassName="text-[#D1B200] dark:text-[#f1d537]"
+            accentClassName="text-volksmarket"
             className="mt-5"
           >
             <p className="font-light text-wrap">
@@ -927,7 +927,7 @@ function ProjectThree() {
 
           <ProjectImpact
             impact={PROJECT_IMPACT.web3Games}
-            accentClassName="text-[#D1B200] dark:text-[#f1d537]"
+            accentClassName="text-volksmarket"
             className="mx-auto mt-5"
           >
             <p className="font-light text-wrap">
@@ -1041,7 +1041,10 @@ function ProjectFour() {
                 "translateY(calc(min(1, (1 - var(--p4-enter, 1)) / 0.3) * 1rem))",
             }}
           >
-            <ProjectImpact impact={PROJECT_IMPACT.rwa}>
+            <ProjectImpact
+              impact={PROJECT_IMPACT.rwa}
+              accentClassName="text-red-500"
+            >
               <p>
                 A non-financial product based Real World Asset Tokenization
                 Marketplace. <br />
