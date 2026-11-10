@@ -77,8 +77,8 @@ export const PROJECT_IMPACT = {
   aiAgent: {
     problem: "Accountants lose hours sorting and keying in documents by hand.",
     built: "An AI agent that reads, sorts and manages accounting documents.",
-    outcome: "Reduce ~80% manual data entry work",
-    role: "Fullstack Engineer · Consultants",
+    outcome: "~80% less manual data entry",
+    role: "Fullstack Engineer · Consultant",
   },
   web3Games: {
     problem:
@@ -86,7 +86,7 @@ export const PROJECT_IMPACT = {
     built:
       "Web3 rewards that players truly own, plus borderless in-game payments.",
     outcome:
-      "Onboard 5 users in the first week · Generate US $1,000+ revenue organically · Reduce client costs and cutting operational workload by 70%.",
+      "US $1,000+ organic revenue in the MVP's first week · Client costs and operational workload cut by 70%",
     role: "Fullstack Engineer · Product Manager",
   },
   rwa: {
@@ -94,7 +94,7 @@ export const PROJECT_IMPACT = {
       "Real-world, non-financial assets are hard to split, trade or prove ownership of.",
     built:
       "A marketplace that turns those assets into tradeable digital tokens.",
-    outcome: "Architecting, TBA",
+    outcome: "In design, launch date to be announced",
     role: "Founder · Fullstack Engineer · Product Manager",
   },
 } satisfies Record<string, ProjectImpactCopy>;
@@ -102,7 +102,10 @@ export const PROJECT_IMPACT = {
 /** Resume: "How I work" steps, in order. Keep each detail to one short line */
 export const HOW_I_WORK = [
   { title: "Understand", detail: "Business problems come first" },
-  { title: "Prototype", detail: "A clickable version that we can hypothesize first" },
+  {
+    title: "Prototype",
+    detail: "A clickable version that we can hypothesize first",
+  },
   { title: "Develop & Ship", detail: "Live, tested and ready for real users" },
   { title: "Measure & iterate", detail: "Improve with real feedback and data" },
 ];

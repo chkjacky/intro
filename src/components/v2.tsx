@@ -737,7 +737,7 @@ function ProjectOne() {
           </p>
 
           <p className="mt-5 text-xl font-light tracking-widest">
-            Temporarily Titled
+            Working Title
           </p>
 
           <div>
@@ -1046,8 +1046,8 @@ function ProjectFour() {
               accentClassName="text-red-500"
             >
               <p>
-                A non-financial product based Real World Asset Tokenization
-                Marketplace. <br />
+                A marketplace to own and trade shares of real-world items.
+                <br />
                 (Coming Soon)
               </p>
             </ProjectImpact>
