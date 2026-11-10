@@ -16,6 +16,7 @@ import {
   type ProjectImpactCopy,
   type ProofStat,
 } from "@/content/impact";
+import { clamp, useScrollVars, type ScrollVars } from "@/hooks/useScrollVars";
 
 import AIAgentArcade from "./arcades/AIAgentArcade";
 import VolksmarketArcade from "./arcades/VolksmarketArcade";
@@ -53,60 +54,6 @@ const magnifierEffect = (
 /**
  * CLAUDE
  */
-const clamp = (value: number) => Math.min(Math.max(value, 0), 1);
-
-type ScrollVars = (
-  rect: DOMRect,
-  vh: number,
-  reduceMotion: boolean,
-) => Record<string, number>;
-
-/**
- * Writes scroll-driven CSS variables onto the element, without re-rendering.
- * `compute` must be stable (defined outside the component).
- */
-function useScrollVars(
-  ref: RefObject<HTMLElement | null>,
-  compute: ScrollVars,
-) {
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
-      const vars = compute(
-        element.getBoundingClientRect(),
-        window.innerHeight,
-        reduceMotion,
-      );
-      for (const [name, value] of Object.entries(vars)) {
-        element.style.setProperty(name, String(value));
-      }
-    };
-
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, [ref, compute]);
-}
-
 /**
  * Dock-style fish-eye: the item under the cursor grows, its neighbours grow
  * less the further away they are, and they slide apart so nothing overlaps.
@@ -343,7 +290,11 @@ function Intro() {
             <Contacts />
           </div>
 
-          <div className="mb-0.5 block lg:hidden">
+          <div className="mb-0.5 flex items-center gap-x-1 lg:hidden">
+            <span className="text-foreground text-sm font-medium tracking-wide">
+              Scroll to view more OR
+            </span>
+
             <Button
               title={`View Contacts`}
               onClick={(e) => {
@@ -353,7 +304,7 @@ function Intro() {
                   ?.scrollIntoView({ behavior: "smooth" });
                 history.replaceState(null, "", "#contacts");
               }}
-              className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground border bg-transparent px-10 hover:cursor-pointer hover:bg-transparent hover:text-blue-600 hover:underline hover:underline-offset-3 active:border-blue-600 active:bg-blue-600 active:text-white sm:border-0 sm:active:bg-transparent dark:hover:text-blue-500"
+              className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground border bg-transparent px-2 underline underline-offset-6 transition-all duration-300 hover:cursor-pointer hover:bg-transparent hover:text-blue-600 hover:underline hover:underline-offset-6 active:border-blue-600 active:bg-blue-600 active:text-white sm:border-0 sm:px-1 sm:active:bg-transparent dark:hover:text-blue-500"
             >
               Let&apos;s Talk! ↓
             </Button>
