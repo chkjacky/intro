@@ -1,9 +1,21 @@
-import { Mouse, MoveDown } from "lucide-react";
+import { Mouse, MoveDown, RotateCcw, RotateCw } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, useState, type RefObject } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type RefObject,
+} from "react";
 
 import { Button } from "@/components/ui/button";
-import { INTRO, TECH_VALUES, type ProofStat } from "@/content/impact";
+import {
+  INTRO,
+  PROJECT_IMPACT,
+  TECH_VALUES,
+  type ProjectImpactCopy,
+  type ProofStat,
+} from "@/content/impact";
 
 import AIAgentArcade from "./arcades/AIAgentArcade";
 import VolksmarketArcade from "./arcades/VolksmarketArcade";
@@ -574,7 +586,7 @@ function TechStacks() {
           </div>
         </div>
 
-        <div ref={dockRef} className="hidden lg:block lg:mt-12">
+        <div ref={dockRef} className="hidden lg:mt-12 lg:block">
           {TECH_STACK_ROWS.map((row, i) => (
             <div
               key={i}
@@ -655,6 +667,96 @@ function FeaturedProjects() {
   );
 }
 
+/**
+ * CLAUDE
+ */
+/**
+ * Flip card for a project's description. Front: the description as before.
+ * Back: Problem → What I built → Outcome, plus my role. Click or tap flips it
+ * (no hover flip: the text is meant to be read, not to spin under the mouse).
+ * Both faces share one grid cell, so the card is as tall as the longer face
+ * and the page doesn't jump when it turns.
+ */
+function ProjectImpact({
+  impact,
+  children,
+  align = "center",
+  accentClassName = "text-foreground",
+  className = "",
+}: {
+  impact: ProjectImpactCopy;
+  /** Front face: the project's existing description */
+  children: ReactNode;
+  align?: "left" | "center";
+  /** Colour for the outcome line, e.g. Volksmarket gold */
+  accentClassName?: string;
+  className?: string;
+}) {
+  const [flipped, setFlipped] = useState(false);
+  const alignment =
+    align === "left" ? "items-start text-left" : "items-center text-center";
+
+  return (
+    <button
+      type="button"
+      aria-pressed={flipped}
+      onClick={() => setFlipped((f) => !f)}
+      className={`block w-full max-w-md perspective-distant hover:cursor-pointer ${className}`}
+    >
+      <span
+        className={`grid transition-transform duration-700 ease-in-out transform-3d motion-reduce:transition-none ${flipped ? "transform-[rotateY(180deg)]" : ""}`}
+      >
+        <span
+          inert={flipped}
+          className={`col-start-1 row-start-1 mx-5 flex flex-col justify-center gap-y-3 backface-hidden lg:mx-0 ${alignment}`}
+        >
+          {children}
+          <span className="text-foreground flex items-center text-[0.65rem] font-medium tracking-[.25em] uppercase">
+            See the impact&nbsp;
+            <RotateCw className="h-3 w-3" />
+          </span>
+        </span>
+
+        <span
+          inert={!flipped}
+          className={`col-start-1 row-start-1 mx-5 flex transform-[rotateY(180deg)] flex-col justify-center gap-y-2 backface-hidden lg:mx-0 ${alignment}`}
+        >
+          <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-left text-xs lg:text-sm">
+            <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
+              Problem
+            </dt>
+            <dd className="font-light">{impact.problem}</dd>
+
+            <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
+              Built
+            </dt>
+            <dd className="font-light">{impact.built}</dd>
+
+            <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
+              Outcome
+            </dt>
+            <dd className={`font-medium ${accentClassName}`}>
+              {impact.outcome}
+            </dd>
+          </dl>
+
+          <span className="text-foreground my-3 text-sm tracking-wider">
+            My Role <br /> {impact.role}
+          </span>
+
+          <span className="text-foreground flex items-center text-[0.65rem] tracking-[.25em] uppercase">
+            <RotateCcw className="h-3 w-3" />
+            &nbsp;Back
+          </span>
+        </span>
+      </span>
+    </button>
+  );
+}
+/**
+ * END OF CLAUDE
+ */
+
 function ProjectOne() {
   return (
     <section
@@ -685,9 +787,16 @@ function ProjectOne() {
             </p>
           </div>
 
-          <p className="mt-5 font-light text-wrap">
-            A prediction market only relies on true facts.
-          </p>
+          <ProjectImpact
+            impact={PROJECT_IMPACT.volksmarket}
+            align="left"
+            accentClassName="text-[#D1B200] dark:text-[#f1d537]"
+            className="mt-5"
+          >
+            <p className="font-light text-wrap">
+              A prediction market only relies on true facts.
+            </p>
+          </ProjectImpact>
         </div>
 
         <div className="flex w-full items-center lg:w-3/5">
@@ -721,10 +830,15 @@ function ProjectTwo() {
               </span>
             </span>
 
-            <p className="px-10 text-justify font-light text-wrap">
-              An AI accounting agent manages accounting documents, simplifying
-              life for accountants.
-            </p>
+            <ProjectImpact
+              impact={PROJECT_IMPACT.aiAgent}
+              className="mx-auto px-10"
+            >
+              <p className="text-justify font-light text-wrap">
+                An AI accounting agent manages accounting documents, simplifying
+                life for accountants.
+              </p>
+            </ProjectImpact>
           </div>
 
           <div className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
@@ -732,10 +846,12 @@ function ProjectTwo() {
               AI Accounting Agent
             </span>
 
-            <p className="font-light text-wrap">
-              An AI accounting agent manages accounting documents, simplifying
-              life for accountants.
-            </p>
+            <ProjectImpact impact={PROJECT_IMPACT.aiAgent} className="mx-auto">
+              <p className="font-light text-wrap">
+                An AI accounting agent manages accounting documents, simplifying
+                life for accountants.
+              </p>
+            </ProjectImpact>
           </div>
         </div>
 
@@ -844,18 +960,25 @@ function ProjectThree() {
             </span>
           </p>
 
-          <p className="mt-5 font-light text-wrap">
-            <i>
-              Transforming a traditional game with the aid of web3 technologies.
-            </i>
-            <br />
-            <br />
-            Play the Game.
-            <br />
-            Own the Rewards.
-            <br />
-            Pay Without Borders.
-          </p>
+          <ProjectImpact
+            impact={PROJECT_IMPACT.web3Games}
+            accentClassName="text-[#D1B200] dark:text-[#f1d537]"
+            className="mx-auto mt-5"
+          >
+            <p className="font-light text-wrap">
+              <i>
+                Transforming a traditional game with the aid of web3
+                technologies.
+              </i>
+              <br />
+              <br />
+              Play the Game.
+              <br />
+              Own the Rewards.
+              <br />
+              Pay Without Borders.
+            </p>
+          </ProjectImpact>
         </div>
       </div>
 
@@ -940,8 +1063,8 @@ function ProjectFour() {
             RWA
           </span>
 
-          <span
-            className="mt-10 inline-block font-light lg:mt-5"
+          <div
+            className="mt-10 flex w-full justify-center px-4 font-light lg:mt-5"
             style={{
               /**
                * Hidden while "RWA" is shrinking, then fades in and rises 1rem
@@ -953,10 +1076,14 @@ function ProjectFour() {
                 "translateY(calc(min(1, (1 - var(--p4-enter, 1)) / 0.3) * 1rem))",
             }}
           >
-            A non-financial product based Real World Asset Tokenization
-            Marketplace. <br />
-            (Coming Soon)
-          </span>
+            <ProjectImpact impact={PROJECT_IMPACT.rwa}>
+              <p>
+                A non-financial product based Real World Asset Tokenization
+                Marketplace. <br />
+                (Coming Soon)
+              </p>
+            </ProjectImpact>
+          </div>
         </div>
 
         <BounceToScrollDown sectionName="Experience" sectionId="resume" />

@@ -53,6 +53,52 @@ export const TECH_VALUES: Record<string, string> = {
   Retool: "Custom internal tools: ready for your staff in days",
 };
 
+export type ProjectImpactCopy = {
+  problem: string;
+  built: string;
+  /** Shown highlighted in the project's accent colour */
+  outcome: string;
+  role: string;
+};
+
+/**
+ * Back of each project's flip card: Problem → What I built → Outcome + role.
+ * Anything in [square brackets] is a placeholder, and it shows on the site as
+ * written. Replace every one with a real answer before pushing to `main`.
+ */
+export const PROJECT_IMPACT = {
+  volksmarket: {
+    problem:
+      "Prediction markets are easy to sway with rumours and fake results.",
+    built: "A prediction market where every outcome settles on verified facts.",
+    outcome: "Finalising, launching soon",
+    role: "Independent Fullstack Engineer",
+  },
+  aiAgent: {
+    problem: "Accountants lose hours sorting and keying in documents by hand.",
+    built: "An AI agent that reads, sorts and manages accounting documents.",
+    outcome: "Reduce ~80% manual data entry work",
+    role: "Fullstack Engineer · Consultants",
+  },
+  web3Games: {
+    problem:
+      "Game rewards stay locked in the game, and paying across borders is slow.",
+    built:
+      "Web3 rewards that players truly own, plus borderless in-game payments.",
+    outcome:
+      "Onboard 5 users in the first week · Generate US $1,000+ revenue organically · Reduce client costs and cutting operational workload by 70%.",
+    role: "Fullstack Engineer · Product Manager",
+  },
+  rwa: {
+    problem:
+      "Real-world, non-financial assets are hard to split, trade or prove ownership of.",
+    built:
+      "A marketplace that turns those assets into tradeable digital tokens.",
+    outcome: "Architecting, TBA",
+    role: "Founder · Fullstack Engineer · Product Manager",
+  },
+} satisfies Record<string, ProjectImpactCopy>;
+
 /**
  * END OF CLAUDE
  */
