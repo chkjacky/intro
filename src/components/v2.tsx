@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { Button } from "@/components/ui/button";
-import { INTRO, type ProofStat } from "@/content/impact";
+import { INTRO, TECH_VALUES, type ProofStat } from "@/content/impact";
 
 import AIAgentArcade from "./arcades/AIAgentArcade";
 import VolksmarketArcade from "./arcades/VolksmarketArcade";
@@ -196,11 +196,19 @@ function useDockMagnify(ref: RefObject<HTMLElement | null>) {
  * A word whose letters get the fish-eye from `useDockMagnify`.
  * Screen readers read `text` once; the split letters are hidden from them.
  */
-function DockWord({ text, size, padding, widthFull }: TechStack) {
+function DockWord({
+  text,
+  size,
+  padding,
+  widthFull,
+  onHover,
+}: TechStack & { onHover: (text: string) => void }) {
   return (
     <div
       data-dock
       className={`relative ${magnifierEffect(size, padding, widthFull)}`}
+      // Mouse only, like the magnify: touch uses the mobile grid's tap instead
+      onPointerEnter={(e) => e.pointerType === "mouse" && onHover(text)}
     >
       <span className="sr-only">{text}</span>
       {/* nowrap: each letter is its own inline-block, which the browser may
@@ -346,7 +354,7 @@ function Intro() {
   );
 }
 
-/** 
+/**
  * CLAUDE
  */
 /**
@@ -410,7 +418,7 @@ function ProofStats() {
     </dl>
   );
 }
-/** 
+/**
  * END OF CLAUDE
  */
 
@@ -436,7 +444,7 @@ const TECH_STACK_ROWS: TechStack[][] = [
     { text: "Ruby On Rails", size: "3xl", padding: 2 },
     { text: "NestJS", size: "7xl", padding: 8 },
     { text: "Shadcn", size: "5xl", padding: 4 },
-    { text: "Tailwind", size: "5xl", padding: 4, widthFull: false },
+    { text: "Tailwind", size: "4xl", padding: 2, widthFull: false },
   ],
   [
     { text: "Jira", size: "3xl", padding: 4 },
@@ -447,8 +455,65 @@ const TECH_STACK_ROWS: TechStack[][] = [
   ],
 ];
 
+/**
+ * CLAUDE
+ */
+/**
+ * Says what the hovered (desktop) or tapped (mobile) tool means for a
+ * business. Keeps showing the last tool, so moving the cursor across the
+ * gaps between words doesn't flicker back to the hint.
+ */
+function TechCaption({ tech }: { tech: string | null }) {
+  return (
+    <div
+      aria-live="polite"
+      className="mx-4 mt-5 flex flex-col items-center justify-start text-center text-base font-light tracking-wide lg:mt-0 lg:justify-center lg:text-xl"
+    >
+      {tech ? (
+        <div key={tech} className="flex flex-col items-center">
+          <span className="overflow-hidden py-0.5">
+            <span className="animate-in slide-in-from-bottom-full fade-in block font-medium tracking-widest duration-300 ease-out">
+              {tech}
+            </span>
+          </span>
+
+          <span
+            aria-hidden="true"
+            className="bg-foreground/40 animate-in zoom-in-0 fill-mode-backwards my-2 block h-px w-16 delay-150 duration-400 ease-out"
+          />
+
+          <span className="animate-in fade-in slide-in-from-bottom-2 fill-mode-backwards block duration-400 ease-out">
+            {TECH_VALUES[tech]}
+          </span>
+        </div>
+      ) : (
+        <div className="animate-in fade-in slide-in-from-bottom-1 flex flex-col items-center duration-400">
+          <span aria-hidden="true" className="invisible py-0.5">
+            <span className="block font-medium tracking-widest">Tech</span>
+          </span>
+
+          <span
+            aria-hidden="true"
+            className="bg-foreground/20 my-2 block h-px w-16"
+          />
+
+          <span className="text-muted-foreground block italic">
+            <span className="lg:hidden">Tap</span>
+            <span className="hidden lg:inline">Hover</span> a tool to see what
+            it does for your business
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+/**
+ * END OF CLAUDE
+ */
+
 function TechStacks() {
   const dockRef = useRef<HTMLDivElement>(null);
+  const [activeTech, setActiveTech] = useState<string | null>(null);
 
   useDockMagnify(dockRef);
 
@@ -461,21 +526,21 @@ function TechStacks() {
         <div className="hidden text-center text-5xl font-light tracking-wide lg:block">
           <div className="dark:text-background text-background">
             <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
-              <span className="dark:bg-foreground relative inline-block w-full rounded-full bg-emerald-500 px-10 py-5">
+              <span className="dark:bg-foreground relative inline-block w-full rounded-full bg-emerald-500 px-10 py-4">
                 <span
                   className="invisible block whitespace-nowrap"
                   aria-hidden="true"
                 >
-                  STACKS
+                  BUILT FOR BUSINESS
                 </span>
 
                 <span className="absolute inset-0 inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
                   <span className="flex h-full w-full items-center justify-center whitespace-nowrap backface-hidden">
-                    TECH
+                    TECH STACKS
                   </span>
 
                   <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center whitespace-nowrap backface-hidden">
-                    STACKS
+                    BUILT FOR BUSINESS
                   </span>
                 </span>
               </span>
@@ -484,44 +549,45 @@ function TechStacks() {
         </div>
 
         <div className="text-center text-5xl font-light tracking-wide lg:hidden lg:text-left lg:text-6xl">
-          TECH STACKS
+          TECH STACKS <br />
+          <span className="text-[2.06rem] font-normal">BUILT FOR BUSINESS</span>
         </div>
       </div>
 
       <div className="flex h-[80vh] flex-col items-center justify-center lg:items-stretch">
         <div className="block lg:hidden">
-          <div className="w-ful grid grid-cols-2 gap-y-3 text-center text-xl tracking-widest">
-            <div> Python </div>
-            <div> Typescript </div>
-            <div> Javascript </div>
-            <div> PHP </div>
-            <div> Solidity </div>
-            <div> Ruby </div>
-            <div> NextJS </div>
-            <div> Ruby On Rails </div>
-            <div> NestJS </div>
-            <div> Shadcn </div>
-            <div> Tailwind </div>
-            <div> Jira </div>
-            <div> PostgreSQL </div>
-            <div> MySQL </div>
-            <div> Postman </div>
-            <div> Retool </div>
+          <div className="grid grid-cols-2 gap-x-2 gap-y-1 text-center text-xl tracking-widest">
+            {TECH_STACK_ROWS.flat().map(({ text }) => (
+              <button
+                key={text}
+                type="button"
+                aria-pressed={activeTech === text}
+                onClick={() =>
+                  // Tap / click again to go back to the hint
+                  setActiveTech((current) => (current === text ? null : text))
+                }
+                className="aria-pressed:bg-input/70 dark:aria-pressed:bg-input rounded-md px-2 py-1 transition-colors hover:cursor-pointer"
+              >
+                {text}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div ref={dockRef} className="hidden lg:block">
+        <div ref={dockRef} className="hidden lg:block lg:mt-12">
           {TECH_STACK_ROWS.map((row, i) => (
             <div
               key={i}
               className="flex w-full flex-col items-center justify-center gap-x-3 px-5 lg:flex-row"
             >
               {row.map((tech) => (
-                <DockWord key={tech.text} {...tech} />
+                <DockWord key={tech.text} {...tech} onHover={setActiveTech} />
               ))}
             </div>
           ))}
         </div>
+
+        <TechCaption tech={activeTech} />
       </div>
 
       <BounceToScrollDown
