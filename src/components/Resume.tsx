@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
+import { WORK_WITH_ME } from "@/content/impact";
 
 import Contacts from "./Contacts";
 import HowIWork from "./HowIWork";
@@ -154,7 +155,30 @@ export default function Resume() {
           id="contacts"
           className="flex w-full scroll-mt-10 flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2"
         >
-          <p className="text-lg font-medium tracking-widest">
+          <p className="text-foreground mx-5 text-sm font-bold tracking-wide">
+            {WORK_WITH_ME.availability}
+          </p>
+
+          <ul className="mx-5 mb-8 grid grid-cols-2 gap-x-4 gap-y-1 text-sm tracking-widest xl:flex xl:items-center xl:justify-center xl:gap-x-2">
+            {WORK_WITH_ME.offers.map((offer, i) => (
+              <li
+                key={offer}
+                className="flex items-center justify-center gap-x-2"
+              >
+                {i > 0 && (
+                  <span
+                    aria-hidden="true"
+                    className="text-muted-foreground hidden xl:inline"
+                  >
+                    ·
+                  </span>
+                )}
+                {offer}
+              </li>
+            ))}
+          </ul>
+
+          <p className="text-2xl font-medium tracking-widest">
             Have a problem worth solving? <br /> Let&apos;s talk.
           </p>
 

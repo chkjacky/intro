@@ -111,5 +111,19 @@ export const HOW_I_WORK = [
 ];
 
 /**
+ * Resume CTA: how people can work with me, shown above "Let's talk".
+ * Keep offers to 1–3 words each so the row wraps neatly on phones.
+ */
+export const WORK_WITH_ME = {
+  availability: "Open to full-time roles, project work and consulting.",
+  offers: [
+    "MWPs in weeks",
+    "AI Automation",
+    "Payments & Web3",
+    "Product & Tech Consulting",
+  ],
+};
+
+/**
  * END OF CLAUDE
  */
