@@ -23,7 +23,7 @@ export default function Contacts() {
   const fromLinkedIn = useFromLinkedIn();
 
   return (
-    <div className="flex w-full flex-col gap-y-5">
+    <div className="flex w-full flex-col gap-y-2.5">
       <div className="mx-3 flex flex-row gap-x-4 lg:mx-24">
         {fromLinkedIn ? (
           <div className="hover:bg-input/30 border-muted-foreground dark:border-chart-4 flex h-10 w-full items-center justify-center gap-x-3 rounded-lg border transition-all duration-300">

@@ -301,7 +301,7 @@ function Intro() {
           </div>
         </div>
 
-        <div className="mt-4 flex w-full flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-y-3 text-center lg:w-1/2">
           <p className="text-3xl font-medium tracking-widest lg:text-4xl">
             Hi! I'm Jacky
           </p>
