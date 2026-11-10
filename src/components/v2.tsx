@@ -1,8 +1,9 @@
 import { Mouse, MoveDown } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { Button } from "@/components/ui/button";
+import { INTRO, type ProofStat } from "@/content/impact";
 
 import AIAgentArcade from "./arcades/AIAgentArcade";
 import VolksmarketArcade from "./arcades/VolksmarketArcade";
@@ -301,9 +302,9 @@ function Intro() {
           </div>
         </div>
 
-        <div className="mt-4 flex w-full flex-col items-center justify-center gap-y-3 text-center lg:w-1/2">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2 lg:gap-y-3">
           <p className="text-3xl font-medium tracking-widest lg:text-4xl">
-            Hi! I'm Jacky
+            Hi! I&apos;m Jacky
           </p>
 
           <p className="text-base font-light tracking-[.35em]">
@@ -312,7 +313,31 @@ function Intro() {
             AI · Fintech · RWA · Web3
           </p>
 
-          <Contacts />
+          <ProofStats />
+
+          <p className="text-foreground/95 text-sm font-light tracking-[.04em] italic sm:max-w-md sm:text-base">
+            {INTRO.valueLine}
+          </p>
+
+          <div className="hidden lg:block lg:min-w-full">
+            <Contacts />
+          </div>
+
+          <div className="mb-0.5 block lg:hidden">
+            <Button
+              title={`View Contacts`}
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById("contacts")
+                  ?.scrollIntoView({ behavior: "smooth" });
+                history.replaceState(null, "", "#contacts");
+              }}
+              className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground border bg-transparent px-10 hover:cursor-pointer hover:bg-transparent hover:text-blue-600 hover:underline hover:underline-offset-3 active:border-blue-600 active:bg-blue-600 active:text-white sm:border-0 sm:active:bg-transparent dark:hover:text-blue-500"
+            >
+              Let&apos;s Talk! ↓
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -320,6 +345,74 @@ function Intro() {
     </section>
   );
 }
+
+/** 
+ * CLAUDE
+ */
+/**
+ * Counts from 0 up to `value` once, on page load. The static HTML already holds
+ * the final number, so it reads correctly before JS loads and with reduced
+ * motion. Screen readers get the final number only, not every step.
+ */
+function CountUp({ value, prefix = "", suffix = "" }: ProofStat) {
+  const [display, setDisplay] = useState(value);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const DURATION_MS = 1200;
+    let frame = 0;
+    let start = 0;
+
+    const tick = (now: number) => {
+      if (!start) start = now;
+      const t = Math.min((now - start) / DURATION_MS, 1);
+      // ease-out cubic: fast at first, settling onto the final number
+      setDisplay(Math.round(value * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
+  return (
+    <>
+      <span aria-hidden="true" className="tabular-nums">
+        {prefix}
+        {display}
+        {suffix}
+      </span>
+
+      <span className="sr-only">
+        {prefix}
+        {value}
+        {suffix}
+      </span>
+    </>
+  );
+}
+
+function ProofStats() {
+  return (
+    <dl className="divide-border my-1 grid w-full grid-cols-3 divide-x sm:max-w-md">
+      {INTRO.stats.map((stat) => (
+        <div key={stat.label} className="flex flex-col-reverse px-2">
+          <dt className="text-foreground/85 text-[0.65rem] leading-tight tracking-widest uppercase sm:text-xs">
+            {stat.label}
+          </dt>
+
+          <dd className="text-2xl font-medium tracking-wider sm:text-3xl">
+            <CountUp {...stat} />
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+/** 
+ * END OF CLAUDE
+ */
 
 type TechStack = {
   text: string;

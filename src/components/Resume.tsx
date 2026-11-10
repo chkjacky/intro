@@ -147,7 +147,10 @@ export default function Resume() {
           View Résumé Externally
         </Link>
 
-        <div className="flex w-full flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2">
+        <div
+          id="contacts"
+          className="flex w-full scroll-mt-10 flex-col items-center justify-center gap-y-1.5 text-center lg:w-1/2"
+        >
           <p className="text-lg font-medium tracking-widest">
             Feel Free to <br /> Reach Out / Read More <br /> Via
           </p>
