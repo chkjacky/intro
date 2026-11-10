@@ -1,4 +1,10 @@
-import { Mouse, MoveDown, RotateCcw, RotateCw } from "lucide-react";
+import {
+  Mouse,
+  MousePointer2,
+  MoveDown,
+  RotateCcw,
+  RotateCw,
+} from "lucide-react";
 import Image from "next/image";
 import {
   useEffect,
@@ -291,6 +297,10 @@ function Intro() {
           </div>
 
           <div className="mb-0.5 flex items-center gap-x-1 lg:hidden">
+            <div className="flex flex-col items-center justify-center">
+              <Mouse className="animate-scroll-flick text-foreground size-4 motion-reduce:animate-none" />
+            </div>
+
             <span className="text-foreground text-sm font-medium tracking-wide">
               Scroll to view more OR
             </span>
@@ -306,7 +316,11 @@ function Intro() {
               }}
               className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground border bg-transparent px-2 underline underline-offset-6 transition-all duration-300 hover:cursor-pointer hover:bg-transparent hover:text-blue-600 hover:underline hover:underline-offset-6 active:border-blue-600 active:bg-blue-600 active:text-white sm:border-0 sm:px-1 sm:active:bg-transparent dark:hover:text-blue-500"
             >
-              Let&apos;s Talk! ↓
+              Let&apos;s Talk!
+              <span aria-hidden="true" className="relative inline-flex">
+                <span className="animate-tap-ripple absolute -top-1 -left-0.5 size-3 rounded-full border border-current opacity-0 motion-reduce:hidden" />
+                <MousePointer2 className="animate-tap-click size-4 motion-reduce:animate-none" />
+              </span>
             </Button>
           </div>
         </div>
@@ -435,7 +449,7 @@ function TechCaption({ tech }: { tech: string | null }) {
       {tech ? (
         <div key={tech} className="flex flex-col items-center">
           <span className="overflow-hidden py-0.5">
-            <span className="animate-in slide-in-from-bottom-full fade-in block font-medium tracking-widest duration-300 ease-out">
+            <span className="animate-in slide-in-from-bottom-full fade-in fill-mode-backwards block font-medium tracking-widest delay-300 duration-400 ease-out">
               {tech}
             </span>
           </span>
@@ -445,7 +459,7 @@ function TechCaption({ tech }: { tech: string | null }) {
             className="bg-foreground/40 animate-in zoom-in-0 fill-mode-backwards my-2 block h-px w-16 delay-150 duration-400 ease-out"
           />
 
-          <span className="animate-in fade-in slide-in-from-bottom-2 fill-mode-backwards block duration-400 ease-out">
+          <span className="animate-in fade-in slide-in-from-bottom-2 fill-mode-backwards block delay-300 duration-400 ease-out">
             {TECH_VALUES[tech]}
           </span>
         </div>
@@ -463,7 +477,7 @@ function TechCaption({ tech }: { tech: string | null }) {
           <span className="text-muted-foreground block italic">
             <span className="lg:hidden">Tap</span>
             <span className="hidden lg:inline">Hover</span> a tool to see what
-            it does for your business
+            it does <br /> for your business
           </span>
         </div>
       )}
