@@ -799,7 +799,7 @@ function ProjectOne() {
           </ProjectImpact>
         </div>
 
-        <div className="flex w-full items-center lg:w-3/5">
+        <div className="flex w-full items-center sm:w-1/2 lg:w-3/5">
           <VolksmarketArcade />
         </div>
       </div>
@@ -855,7 +855,7 @@ function ProjectTwo() {
           </div>
         </div>
 
-        <div className="flex w-full items-center lg:w-3/5">
+        <div className="flex w-full items-center sm:w-1/2 lg:w-3/5">
           <AIAgentArcade />
         </div>
       </div>
