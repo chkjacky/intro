@@ -76,13 +76,13 @@ function Steps({
         <TimelineItem
           key={step.title}
           step={i + 1}
-          className="has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-foreground min-w-0 opacity-40 transition-opacity duration-500 group-data-[orientation=horizontal]/timeline:items-center group-data-[orientation=horizontal]/timeline:px-3 group-data-[orientation=horizontal]/timeline:text-center group-data-[orientation=horizontal]/timeline:not-last:pe-3 data-completed:opacity-100 has-[+[data-completed]]:**:data-[slot=timeline-separator]:shadow-[0_0_8px_1px_color-mix(in_oklch,var(--foreground)_80%,transparent)] motion-reduce:transition-none"
+          className="has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-timeline-glow min-w-0 opacity-40 transition-opacity duration-500 group-data-[orientation=horizontal]/timeline:items-center group-data-[orientation=horizontal]/timeline:px-3 group-data-[orientation=horizontal]/timeline:text-center group-data-[orientation=horizontal]/timeline:not-last:pe-3 data-completed:opacity-100 has-[+[data-completed]]:**:data-[slot=timeline-separator]:shadow-[0_0_8px_1px_color-mix(in_oklch,var(--timeline-glow)_80%,transparent)] motion-reduce:transition-none"
         >
           <TimelineHeader>
             {/* Horizontal: starts at this column's centre (just past the dot) and
                 spans one column, ending just before the next dot */}
             <TimelineSeparator className="bg-foreground/15 transition-[background-color,box-shadow] duration-500 group-data-[orientation=horizontal]/timeline:left-1/2 group-data-[orientation=horizontal]/timeline:translate-x-2.5" />
-            
+
             <TimelineDate asChild>
               <span className="tracking-widest">
                 {String(i + 1).padStart(2, "0")}
@@ -94,10 +94,10 @@ function Steps({
             </TimelineTitle>
 
             {/* Reached: filled + soft glow */}
-            <TimelineIndicator className="border-foreground/20 group-data-completed/timeline-item:border-foreground group-data-completed/timeline-item:bg-foreground transition-[border-color,background-color,box-shadow] duration-500 group-data-completed/timeline-item:shadow-[0_0_14px_4px_color-mix(in_oklch,var(--foreground)_75%,transparent)] group-data-[orientation=horizontal]/timeline:left-1/2 group-data-[orientation=horizontal]/timeline:-translate-x-1/2">
+            <TimelineIndicator className="border-foreground/20 group-data-completed/timeline-item:border-timeline-glow dark:group-data-completed/timeline-item:bg-foreground group-data-completed/timeline-item:bg-background transition-[border-color,background-color,box-shadow] duration-500 group-data-completed/timeline-item:shadow-[0_0_14px_4px_color-mix(in_oklch,var(--timeline-glow)_75%,transparent)] group-data-[orientation=horizontal]/timeline:left-1/2 group-data-[orientation=horizontal]/timeline:-translate-x-1/2">
               {/* Newest reached step: a ring that keeps pulsing outward */}
               {i + 1 === activeStep && (
-                <span className="bg-foreground absolute -inset-0.5 animate-ping rounded-full opacity-75 motion-reduce:hidden" />
+                <span className="bg-timeline-glow absolute -inset-0.5 animate-ping rounded-full opacity-75 motion-reduce:hidden" />
               )}
             </TimelineIndicator>
           </TimelineHeader>

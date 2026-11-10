@@ -21,6 +21,7 @@
   --color-chart-5: var(--chart-5);
   --color-link: var(--link);
   --color-volksmarket: var(--volksmarket);
+  --color-timeline-glow: var(--timeline-glow);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
@@ -137,6 +138,8 @@
   --link: oklch(0.546 0.245 262.881);
   /* Volksmarket brand gold, darker so it reads on white */
   --volksmarket: #d1b200;
+  /* How I work timeline light: warm yellow on white (Tailwind yellow-400) */
+  --timeline-glow: oklch(92.602% 0.11538 94.654);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
@@ -176,6 +179,8 @@
   --link: oklch(0.623 0.214 259.815);
   /* Brighter gold for dark backgrounds */
   --volksmarket: #f1d537;
+  /* Same near-white as --foreground, so it glows white on dark */
+  --timeline-glow: oklch(0.985 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
