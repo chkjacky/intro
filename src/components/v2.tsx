@@ -49,6 +49,7 @@ const magnifierEffect = (
   const paddingTypes: Record<number, string> = {
     2: "py-2",
     4: "py-4",
+    6: "py-6",
     8: "py-8",
   };
 
@@ -193,6 +194,50 @@ function DockWord({
     </div>
   );
 }
+
+/**
+ * Counts from 0 up to `value` once, on page load. The static HTML already holds
+ * the final number, so it reads correctly before JS loads and with reduced
+ * motion. Screen readers get the final number only, not every step.
+ */
+function CountUp({ value, prefix = "", suffix = "" }: ProofStat) {
+  const [display, setDisplay] = useState(value);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const DURATION_MS = 1200;
+    let frame = 0;
+    let start = 0;
+
+    const tick = (now: number) => {
+      if (!start) start = now;
+      const t = Math.min((now - start) / DURATION_MS, 1);
+      // ease-out cubic: fast at first, settling onto the final number
+      setDisplay(Math.round(value * (1 - Math.pow(1 - t, 3))));
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
+  return (
+    <>
+      <span aria-hidden="true" className="tabular-nums">
+        {prefix}
+        {display}
+        {suffix}
+      </span>
+
+      <span className="sr-only">
+        {prefix}
+        {value}
+        {suffix}
+      </span>
+    </>
+  );
+}
 /**
  * END OF CLAUDE
  */
@@ -247,6 +292,30 @@ export default function V2() {
   );
 }
 
+/**
+ * CLAUDE
+ */
+function ProofStats() {
+  return (
+    <dl className="divide-border my-1 grid w-full grid-cols-3 divide-x sm:max-w-md">
+      {INTRO.stats.map((stat) => (
+        <div key={stat.label} className="flex flex-col-reverse px-2">
+          <dt className="text-foreground/85 text-[0.65rem] leading-tight tracking-widest uppercase sm:text-xs">
+            {stat.label}
+          </dt>
+
+          <dd className="text-2xl font-medium tracking-wider sm:text-3xl">
+            <CountUp {...stat} />
+          </dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+/**
+ * END OF CLAUDE
+ */
+
 function Intro() {
   return (
     <section id="intro">
@@ -292,7 +361,7 @@ function Intro() {
             {INTRO.valueLine}
           </p>
 
-          <div className="hidden lg:block lg:min-w-full">
+          <div className="hidden lg:block lg:min-w-full lg:mt-7">
             <Contacts />
           </div>
 
@@ -331,74 +400,6 @@ function Intro() {
   );
 }
 
-/**
- * CLAUDE
- */
-/**
- * Counts from 0 up to `value` once, on page load. The static HTML already holds
- * the final number, so it reads correctly before JS loads and with reduced
- * motion. Screen readers get the final number only, not every step.
- */
-function CountUp({ value, prefix = "", suffix = "" }: ProofStat) {
-  const [display, setDisplay] = useState(value);
-
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const DURATION_MS = 1200;
-    let frame = 0;
-    let start = 0;
-
-    const tick = (now: number) => {
-      if (!start) start = now;
-      const t = Math.min((now - start) / DURATION_MS, 1);
-      // ease-out cubic: fast at first, settling onto the final number
-      setDisplay(Math.round(value * (1 - Math.pow(1 - t, 3))));
-      if (t < 1) frame = requestAnimationFrame(tick);
-    };
-
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [value]);
-
-  return (
-    <>
-      <span aria-hidden="true" className="tabular-nums">
-        {prefix}
-        {display}
-        {suffix}
-      </span>
-
-      <span className="sr-only">
-        {prefix}
-        {value}
-        {suffix}
-      </span>
-    </>
-  );
-}
-
-function ProofStats() {
-  return (
-    <dl className="divide-border my-1 grid w-full grid-cols-3 divide-x sm:max-w-md">
-      {INTRO.stats.map((stat) => (
-        <div key={stat.label} className="flex flex-col-reverse px-2">
-          <dt className="text-foreground/85 text-[0.65rem] leading-tight tracking-widest uppercase sm:text-xs">
-            {stat.label}
-          </dt>
-
-          <dd className="text-2xl font-medium tracking-wider sm:text-3xl">
-            <CountUp {...stat} />
-          </dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-/**
- * END OF CLAUDE
- */
-
 type TechStack = {
   text: string;
   size: string;
@@ -410,24 +411,24 @@ type TechStack = {
 const TECH_STACK_ROWS: TechStack[][] = [
   [
     { text: "Python", size: "3xl", padding: 4, widthFull: false },
-    { text: "Typescript", size: "7xl", padding: 8 },
+    { text: "Typescript", size: "7xl", padding: 6 },
     { text: "PHP", size: "3xl", padding: 2 },
     { text: "Javascript", size: "5xl", padding: 4 },
     { text: "Solidity", size: "4xl", padding: 2 },
     { text: "Ruby", size: "3xl", padding: 4, widthFull: false },
   ],
   [
-    { text: "NextJS", size: "7xl", padding: 8, widthFull: false },
+    { text: "NextJS", size: "7xl", padding: 6, widthFull: false },
     { text: "Ruby On Rails", size: "3xl", padding: 2 },
-    { text: "NestJS", size: "7xl", padding: 8 },
+    { text: "NestJS", size: "7xl", padding: 6 },
     { text: "Shadcn", size: "5xl", padding: 4 },
     { text: "Tailwind", size: "4xl", padding: 2, widthFull: false },
   ],
   [
     { text: "Jira", size: "3xl", padding: 4 },
-    { text: "PostgreSQL", size: "7xl", padding: 8 },
+    { text: "PostgreSQL", size: "7xl", padding: 6 },
     { text: "MySQL", size: "3xl", padding: 2 },
-    { text: "Postman", size: "7xl", padding: 8 },
+    { text: "Postman", size: "7xl", padding: 6 },
     { text: "Retool", size: "5xl", padding: 4 },
   ],
 ];
@@ -551,7 +552,7 @@ function TechStacks() {
           </div>
         </div>
 
-        <div ref={dockRef} className="hidden lg:mt-12 lg:block">
+        <div ref={dockRef} className="hidden lg:mt-3 lg:block">
           {TECH_STACK_ROWS.map((row, i) => (
             <div
               key={i}

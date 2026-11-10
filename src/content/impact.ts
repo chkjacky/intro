@@ -24,7 +24,7 @@ export const INTRO = {
   stats: [
     { value: 6, suffix: "+", label: "Years building" },
     { value: 7, suffix: "+", label: "Products" },
-    { value: 6, prefix: "~", label: "Weeks to MVP" },
+    { value: 6, prefix: "~", label: "Weeks to launch" },
   ] satisfies ProofStat[],
 };
 
@@ -42,7 +42,7 @@ export const TECH_VALUES: Record<string, string> = {
   Solidity: "Smart contracts: secure payments and provable ownership",
   Ruby: "Reliable backends: dependable systems built to last",
   NextJS: "Fast, SEO-ready websites: easy to find on Google",
-  "Ruby On Rails": "Rapid MVPs: a working product in weeks, not months",
+  "Ruby On Rails": "Rapid delivery: a working product in weeks, not months",
   NestJS: "Scalable APIs: back-ends that grow with your business",
   Shadcn: "Accessible UI components: clean screens anyone can use",
   Tailwind: "Responsive design: your brand looks right on every screen",
@@ -88,7 +88,7 @@ export const PROJECT_IMPACT = {
     built: "An AI agent that reads, sorts and manages accounting documents.",
     outcome: "~80% less manual data entry",
     role: "Fullstack Engineer · Consultant",
-    highlight: "80% manual data entry reduced",
+    highlight: "~80% less manual data entry",
   },
   web3Games: {
     problem:
@@ -96,7 +96,7 @@ export const PROJECT_IMPACT = {
     built:
       "Web3 rewards that players truly own, plus borderless in-game payments.",
     outcome:
-      "US $1,000+ organic revenue in the MVP's first week · Client costs and operational workload cut by 70%",
+      "US $1,000+ organic revenue in the first week after launch · Client costs and operational workload cut by 70%",
     role: "Fullstack Engineer · Product Manager",
     highlight: "US $1,000+ revenue in week one",
   },
@@ -117,9 +117,9 @@ export const HOW_I_WORK = [
   { title: "Understand", detail: "Business problems come first" },
   {
     title: "Prototype",
-    detail: "A clickable version that we can hypothesize first",
+    detail: "A clickable version to test ideas early",
   },
-  { title: "Develop & Ship", detail: "Live, tested and ready for real users" },
+  { title: "Develop & ship", detail: "Live, tested and ready for real users" },
   { title: "Measure & iterate", detail: "Improve with real feedback and data" },
 ];
 
@@ -130,10 +130,10 @@ export const HOW_I_WORK = [
 export const WORK_WITH_ME = {
   availability: "Open to full-time roles, project work and consulting.",
   offers: [
-    "MWPs in weeks",
-    "AI Automation",
+    "Rapid Delivery in weeks",
+    "AI automation",
     "Payments & Web3",
-    "Product & Tech Consulting",
+    "Product & tech consulting",
   ],
 };
 

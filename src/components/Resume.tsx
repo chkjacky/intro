@@ -159,20 +159,12 @@ export default function Resume() {
             {WORK_WITH_ME.availability}
           </p>
 
-          <ul className="mx-5 mb-8 grid grid-cols-2 gap-x-4 gap-y-1 text-sm tracking-widest xl:flex xl:items-center xl:justify-center xl:gap-x-2">
-            {WORK_WITH_ME.offers.map((offer, i) => (
+          <ul className="mx-5 mb-8 grid grid-cols-2 gap-x-4 gap-y-1 text-sm tracking-widest">
+            {WORK_WITH_ME.offers.map((offer) => (
               <li
                 key={offer}
-                className="flex items-center justify-center gap-x-2"
+                className="flex items-center justify-center gap-x-2 capitalize"
               >
-                {i > 0 && (
-                  <span
-                    aria-hidden="true"
-                    className="text-muted-foreground hidden xl:inline"
-                  >
-                    ·
-                  </span>
-                )}
                 {offer}
               </li>
             ))}
