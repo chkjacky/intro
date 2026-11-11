@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  /* Lets the dev server load over ngrok (e.g. testing on a phone) */
+  allowedDevOrigins: ["*.ngrok-free.app", "*.ngrok-free.dev", "*.ngrok.app"],
 };
 
 export default nextConfig;
