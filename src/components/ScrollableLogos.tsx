@@ -2,8 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
 
 import { useScrollVars, type ScrollVars } from "@/hooks/useScrollVars";
-
-const basePath = process.env.NODE_ENV === "production" ? "/intro" : "";
+import { basePath } from "@/lib/basePath";
 
 const LOGOS = ["usdc", "polygon", "reown", "metamask"].map(
   (name) => `${basePath}/images/${name}.png`,
