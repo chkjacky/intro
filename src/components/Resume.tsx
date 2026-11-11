@@ -2,38 +2,13 @@
 
 import { MoveUp } from "lucide-react";
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 
 import { Button } from "@/components/ui/button";
 import { WORK_WITH_ME } from "@/content/impact";
+import { useFromLinkedIn } from "@/hooks/useFromLinkedIn";
 
 import Contacts from "./Contacts";
 import HowIWork from "./HowIWork";
-
-/**
- * CLAUDE
- */
-// The query string never changes after load, so there's nothing to subscribe to
-const subscribe = () => () => {};
-
-/**
- * True when the page was opened with `?from=linkedin` (any case).
- * Always false in the static build, so the exported HTML shows WhatsApp and
- * LinkedIn visitors see it swap to Telegram once the page hydrates.
- */
-function useFromLinkedIn() {
-  return useSyncExternalStore(
-    subscribe,
-    () =>
-      new URLSearchParams(window.location.search).get("from")?.toLowerCase() ===
-      "linkedin",
-    () => false,
-  );
-}
-
-/**
- * END OF CLAUDE
- */
 
 const CERTS = [
   {

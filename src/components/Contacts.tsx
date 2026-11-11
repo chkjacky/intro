@@ -1,23 +1,6 @@
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
 
-// The query string never changes after load, so there's nothing to subscribe to
-const subscribe = () => () => {};
-
-/**
- * True when the page was opened with `?from=linkedin` (any case).
- * Always false in the static build, so the exported HTML shows WhatsApp and
- * LinkedIn visitors see it swap to Telegram once the page hydrates.
- */
-function useFromLinkedIn() {
-  return useSyncExternalStore(
-    subscribe,
-    () =>
-      new URLSearchParams(window.location.search).get("from")?.toLowerCase() ===
-      "linkedin",
-    () => false,
-  );
-}
+import { useFromLinkedIn } from "@/hooks/useFromLinkedIn";
 
 export default function Contacts() {
   const fromLinkedIn = useFromLinkedIn();
