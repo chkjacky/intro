@@ -29,28 +29,16 @@ export default function ThemeSwitch({ isMediumAndLarger }: ThemeSwitchProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align={isMediumAndLarger ? "end" : "center"}>
+        {/* Centred under the icon on small screens, left-aligned from md */}
         <DropdownMenuItem
           onClick={() => setTheme("light")}
-          className="hidden hover:cursor-pointer md:block"
+          className="justify-center hover:cursor-pointer md:justify-start"
         >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
-          className="hidden hover:cursor-pointer md:block"
-        >
-          Dark
-        </DropdownMenuItem>
-
-        <DropdownMenuItem
-          onClick={() => setTheme("light")}
-          className="justify-center hover:cursor-pointer md:hidden"
-        >
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setTheme("dark")}
-          className="justify-center hover:cursor-pointer md:hidden"
+          className="justify-center hover:cursor-pointer md:justify-start"
         >
           Dark
         </DropdownMenuItem>
