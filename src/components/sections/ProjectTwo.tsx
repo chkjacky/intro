@@ -14,31 +14,22 @@ export default function ProjectTwo() {
     >
       <div className="flex h-[90vh] flex-col items-center justify-center lg:flex-row-reverse">
         <div className="flex w-full justify-center not-last:items-center lg:w-2/5">
-          <div className="dark:text-foreground text-foreground/80 mb-5 hidden lg:block">
+          {/* lg: resets the mobile-only text styles to the page defaults */}
+          <div className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:leading-normal lg:font-normal lg:tracking-normal">
             <FlipHeading
               front="AI Agent"
               back="Accounting Agent"
-              className="mb-10 text-center text-3xl font-medium tracking-widest sm:text-4xl"
+              className="mb-10 hidden text-center text-3xl font-medium tracking-widest sm:text-4xl lg:inline-block"
             />
-
-            <ProjectImpact
-              impact={PROJECT_IMPACT.aiAgent}
-              className="mx-auto px-10"
-            >
-              <p className="text-justify font-light text-wrap">
-                An AI accounting agent manages accounting documents, simplifying
-                life for accountants.
-              </p>
-            </ProjectImpact>
-          </div>
-
-          <div className="text-foreground/80 dark:text-foreground mb-5 text-center leading-tight font-light tracking-wide text-wrap lg:hidden">
-            <UnderlineTitle className="mb-10">
+            <UnderlineTitle className="mb-10 lg:hidden">
               AI Accounting Agent
             </UnderlineTitle>
 
-            <ProjectImpact impact={PROJECT_IMPACT.aiAgent} className="mx-auto">
-              <p className="font-light text-wrap">
+            <ProjectImpact
+              impact={PROJECT_IMPACT.aiAgent}
+              className="mx-auto lg:px-10"
+            >
+              <p className="font-light text-wrap lg:text-justify">
                 An AI accounting agent manages accounting documents, simplifying
                 life for accountants.
               </p>
