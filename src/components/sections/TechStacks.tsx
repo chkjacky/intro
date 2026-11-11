@@ -5,33 +5,6 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import BounceToScrollDown from "@/components/BounceToScrollDown";
 import { TECH_VALUES } from "@/content/impact";
 
-const magnifierEffect = (
-  size: string,
-  padding: number,
-  widthFull: boolean = true,
-) => {
-  const textSizes: Record<string, string> = {
-    "1xl": "text-1xl",
-    "2xl": "text-2xl",
-    "3xl": "text-3xl",
-    "4xl": "text-4xl",
-    "5xl": "text-5xl",
-    "6xl": "text-6xl",
-    "7xl": "text-7xl",
-  };
-
-  const paddingTypes: Record<number, string> = {
-    2: "py-2",
-    4: "py-4",
-    6: "py-6",
-    8: "py-8",
-  };
-
-  const width = widthFull ? "w-full" : "w-fit";
-
-  return `${width} ${textSizes[size]} ${paddingTypes[padding]} text-center cursor-zoom-in`;
-};
-
 /**
  * CLAUDE
  */
@@ -138,15 +111,13 @@ function useDockMagnify(ref: RefObject<HTMLElement | null>) {
  */
 function DockWord({
   text,
-  size,
-  padding,
-  widthFull,
+  className,
   onHover,
 }: TechStack & { onHover: (text: string) => void }) {
   return (
     <div
       data-dock
-      className={`relative ${magnifierEffect(size, padding, widthFull)}`}
+      className={`relative cursor-zoom-in text-center ${className}`}
       // Mouse only, like the magnify: touch uses the mobile grid's tap instead
       onPointerEnter={(e) => e.pointerType === "mouse" && onHover(text)}
     >
@@ -174,34 +145,33 @@ function DockWord({
 
 type TechStack = {
   text: string;
-  size: string;
-  padding: number;
-  widthFull?: boolean;
+  /** Width (`w-full` fills the gap, `w-fit` hugs the word), padding and text size */
+  className: string;
 };
 
-// Desktop tech list, one inner array per row (see `magnifierEffect`)
+// Desktop tech list, one inner array per row
 const TECH_STACK_ROWS: TechStack[][] = [
   [
-    { text: "Python", size: "3xl", padding: 4, widthFull: false },
-    { text: "Typescript", size: "7xl", padding: 6 },
-    { text: "PHP", size: "3xl", padding: 2 },
-    { text: "Javascript", size: "5xl", padding: 4 },
-    { text: "Solidity", size: "4xl", padding: 2 },
-    { text: "Ruby", size: "3xl", padding: 4, widthFull: false },
+    { text: "Python", className: "w-fit py-4 text-3xl" },
+    { text: "Typescript", className: "w-full py-6 text-7xl" },
+    { text: "PHP", className: "w-full py-2 text-3xl" },
+    { text: "Javascript", className: "w-full py-4 text-5xl" },
+    { text: "Solidity", className: "w-full py-2 text-4xl" },
+    { text: "Ruby", className: "w-fit py-4 text-3xl" },
   ],
   [
-    { text: "NextJS", size: "7xl", padding: 6, widthFull: false },
-    { text: "Ruby On Rails", size: "3xl", padding: 2 },
-    { text: "NestJS", size: "7xl", padding: 6 },
-    { text: "Shadcn", size: "5xl", padding: 4 },
-    { text: "Tailwind", size: "4xl", padding: 2, widthFull: false },
+    { text: "NextJS", className: "w-fit py-6 text-7xl" },
+    { text: "Ruby On Rails", className: "w-full py-2 text-3xl" },
+    { text: "NestJS", className: "w-full py-6 text-7xl" },
+    { text: "Shadcn", className: "w-full py-4 text-5xl" },
+    { text: "Tailwind", className: "w-fit py-2 text-4xl" },
   ],
   [
-    { text: "Jira", size: "3xl", padding: 4 },
-    { text: "PostgreSQL", size: "7xl", padding: 6 },
-    { text: "MySQL", size: "3xl", padding: 2 },
-    { text: "Postman", size: "7xl", padding: 6 },
-    { text: "Retool", size: "5xl", padding: 4 },
+    { text: "Jira", className: "w-full py-4 text-3xl" },
+    { text: "PostgreSQL", className: "w-full py-6 text-7xl" },
+    { text: "MySQL", className: "w-full py-2 text-3xl" },
+    { text: "Postman", className: "w-full py-6 text-7xl" },
+    { text: "Retool", className: "w-full py-4 text-5xl" },
   ],
 ];
 
