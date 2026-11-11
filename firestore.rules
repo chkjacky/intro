@@ -1,4 +1,4 @@
-// Firestore security rules for the visitor counter (see COUNTER.md).
+// Firestore security rules for the visitor counter (see .claude/plans/visitor-counter.md).
 // Deploy by pasting into Firebase console → Firestore Database → Rules → Publish.
 rules_version = '2';
 service cloud.firestore {
