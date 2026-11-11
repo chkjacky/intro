@@ -146,7 +146,7 @@ export default function Resume() {
           }
           target="_blank"
           rel="noopener noreferrer"
-          className="lg:text-foreground dark:text-foreground hover:text-link mx-5 mt-2 block underline underline-offset-6 transition-all duration-300 hover:underline"
+          className="text-foreground hover:text-link mx-5 mt-2 block underline underline-offset-6 transition-all duration-300 hover:underline"
         >
           View Résumé Externally
         </Link>
