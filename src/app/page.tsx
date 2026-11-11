@@ -1,5 +1,3 @@
-"use client";
-
 import Resume from "@/components/Resume";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import V2 from "@/components/v2";
