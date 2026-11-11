@@ -1,24 +1,11 @@
 "use client";
 
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-
 import Resume from "@/components/Resume";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import V2 from "@/components/v2";
 import VisitorCounter from "@/components/VisitorCounter";
 
 export default function Home() {
-  const { theme } = useTheme();
-
-  const [currentTheme, setCurrentTheme] = useState<string | undefined>(
-    undefined,
-  );
-
-  useEffect(() => {
-    if (theme) setCurrentTheme(theme);
-  }, [theme]);
-
   return (
     <>
       <nav
@@ -27,7 +14,8 @@ export default function Home() {
       >
         <div className="hidden space-x-3 text-sm lg:block">
           <span>
-            Eyes need {currentTheme === "light" ? "to rest?" : "some light?"}
+            Eyes need <span className="dark:hidden">to rest?</span>
+            <span className="hidden dark:inline">some light?</span>
           </span>
           <ThemeSwitch isMediumAndLarger={true} />
         </div>
