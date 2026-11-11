@@ -9,7 +9,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sans", // important
 });
 
