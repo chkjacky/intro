@@ -220,7 +220,7 @@ function TechCaption({ tech }: { tech: string | null }) {
           <span className="text-muted-foreground block italic">
             <span className="lg:hidden">Tap</span>
             <span className="hidden lg:inline">Hover</span> a tool to see what
-            it does <br /> for your business
+            it does <br className="lg:hidden" /> for your business
           </span>
         </div>
       )}
@@ -230,6 +230,20 @@ function TechCaption({ tech }: { tech: string | null }) {
 /**
  * END OF CLAUDE
  */
+
+function Tag({ close, children }: { close?: boolean; children: string }) {
+  return (
+    <span>
+      <span aria-hidden="true" className="text-cyan-500 dark:hidden">
+        {close ? "</" : "<"}
+      </span>
+      <span className="dark:text-background text-green-600">{children}</span>
+      <span aria-hidden="true" className="text-cyan-500 dark:hidden">
+        &gt;
+      </span>
+    </span>
+  );
+}
 
 export default function TechStacks() {
   const dockRef = useRef<HTMLDivElement>(null);
@@ -244,28 +258,21 @@ export default function TechStacks() {
     >
       <div className="flex h-[10vh] flex-col items-center justify-center pt-20 text-center lg:flex-row">
         <div className="hidden text-center text-5xl font-light tracking-wide lg:block">
-          <div className="dark:text-background text-background">
-            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
-              <span className="dark:bg-foreground relative inline-block w-full rounded-full bg-emerald-500 px-10 py-4">
-                <span
-                  className="invisible block whitespace-nowrap"
-                  aria-hidden="true"
-                >
-                  BUILT FOR BUSINESS
-                </span>
+          {/* Light: code tag. Dark: the original white pill (brackets hidden) */}
+          <span className="perspective-500 group dark:bg-foreground relative inline-block cursor-col-resize rounded-full text-6xl whitespace-nowrap dark:px-10 dark:py-4">
+            <span className="invisible block" aria-hidden="true">
+              <Tag close>BUILT FOR BUSINESS</Tag>
+            </span>
 
-                <span className="absolute inset-0 inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
-                  <span className="flex h-full w-full items-center justify-center whitespace-nowrap backface-hidden">
-                    TECH STACKS
-                  </span>
-
-                  <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center whitespace-nowrap backface-hidden">
-                    BUILT FOR BUSINESS
-                  </span>
-                </span>
+            <span className="absolute inset-0 transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
+              <span className="absolute inset-0 flex items-center justify-center backface-hidden">
+                <Tag>TECH STACKS</Tag>
+              </span>
+              <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
+                <Tag close>BUILT FOR BUSINESS</Tag>
               </span>
             </span>
-          </div>
+          </span>
         </div>
 
         <div className="text-center text-5xl font-light tracking-wide lg:hidden lg:text-left lg:text-6xl">
