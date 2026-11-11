@@ -208,6 +208,13 @@ html {
   scrollbar-color: rgba(100, 100, 100, 0.4) transparent;
 }
 
+/* Smooth scroll for the #section links, unless the visitor asks for less motion */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 /* WebKit (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   height: 6px;

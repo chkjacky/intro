@@ -1,5 +1,3 @@
-"use client";
-
 import { Mouse } from "lucide-react";
 
 import AIAgentArcade from "@/components/arcades/AIAgentArcade";
@@ -61,17 +59,12 @@ export default function ProjectTwo() {
         <span className="bg-muted-foreground/60 dark:bg-bg-muted-foreground/30 absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span> */}
 
         <Button
-          title="Scroll to View Third Project"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById("feature-project-three")
-              ?.scrollIntoView({ behavior: "smooth" });
-            history.replaceState(null, "", "#feature-project-three");
-          }}
+          asChild
           className="bg-muted-foreground/60 dark:bg-input relative inline-flex h-9 w-9 rounded-full text-white hover:cursor-pointer"
         >
-          <Mouse className="animate-scroll-flick size-5 text-white motion-reduce:animate-none" />
+          <a href="#feature-project-three" title="Scroll to View Third Project">
+            <Mouse className="animate-scroll-flick size-5 text-white motion-reduce:animate-none" />
+          </a>
         </Button>
 
         {/* </span> */}

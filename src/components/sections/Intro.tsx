@@ -143,21 +143,16 @@ export default function Intro() {
             </span>
 
             <Button
-              title={`View Contacts`}
-              onClick={(e) => {
-                e.preventDefault();
-                document
-                  .getElementById("contacts")
-                  ?.scrollIntoView({ behavior: "smooth" });
-                history.replaceState(null, "", "#contacts");
-              }}
+              asChild
               className="text-foreground border-muted-foreground dark:border-chart-4 dark:active:text-foreground hover:text-link active:border-link active:bg-link border bg-transparent px-2 underline underline-offset-6 transition-all duration-300 hover:cursor-pointer hover:bg-transparent hover:underline hover:underline-offset-6 active:text-white sm:border-0 sm:px-1 sm:active:bg-transparent"
             >
-              Let&apos;s Talk!
-              <span aria-hidden="true" className="relative inline-flex">
-                <span className="animate-tap-ripple absolute -top-1 -left-0.5 size-3 rounded-full border border-current opacity-0 motion-reduce:hidden" />
-                <MousePointer2 className="animate-tap-click size-4 motion-reduce:animate-none" />
-              </span>
+              <a href="#contacts" title="View Contacts">
+                Let&apos;s Talk!
+                <span aria-hidden="true" className="relative inline-flex">
+                  <span className="animate-tap-ripple absolute -top-1 -left-0.5 size-3 rounded-full border border-current opacity-0 motion-reduce:hidden" />
+                  <MousePointer2 className="animate-tap-click size-4 motion-reduce:animate-none" />
+                </span>
+              </a>
             </Button>
           </div>
         </div>

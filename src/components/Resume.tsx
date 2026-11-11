@@ -165,17 +165,12 @@ export default function Resume() {
 
         <div className="flex flex-col items-center justify-center">
           <Button
-            title="Back To Top"
-            onClick={(e) => {
-              e.preventDefault();
-              document
-                .getElementById("top")
-                ?.scrollIntoView({ behavior: "smooth" });
-              history.replaceState(null, "", "#top");
-            }}
+            asChild
             className="bg-muted-foreground/60 dark:bg-input h-8 w-8 animate-bounce rounded-full border border-white hover:cursor-pointer"
           >
-            <MoveUp className="h-5 w-5 text-white" />
+            <a href="#top" title="Back To Top">
+              <MoveUp className="h-5 w-5 text-white" />
+            </a>
           </Button>
         </div>
       </section>
