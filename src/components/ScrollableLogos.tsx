@@ -70,7 +70,7 @@ const CircularLogo: React.FC<RotatingFlagProps> = ({
   return (
     <div
       ref={flagRef}
-      className="aspect-square w-32 rounded-full bg-cover bg-center shadow-md will-change-transform sm:w-36 md:w-44 lg:w-52 pointer-fine:transition-transform pointer-fine:duration-75 pointer-fine:ease-out"
+      className="aspect-square w-32 rounded-full bg-cover bg-center will-change-transform sm:w-36 md:w-44 lg:w-52 pointer-fine:transition-transform pointer-fine:duration-75 pointer-fine:ease-out"
       style={{ backgroundImage: `url(${flagImage})` }}
     />
   );
