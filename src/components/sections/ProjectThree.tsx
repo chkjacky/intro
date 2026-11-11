@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 
 import BounceToScrollDown from "@/components/BounceToScrollDown";
+import { UnderlineTitle } from "@/components/headings";
 import ProjectImpact from "@/components/ProjectImpact";
 import ScrollableLogos from "@/components/ScrollableLogos";
 import { PROJECT_IMPACT } from "@/content/impact";
@@ -76,11 +77,11 @@ export default function ProjectThree() {
 
         <div className="w-full text-center">
           <p className="text-foreground/80 dark:text-foreground leading-tight font-light tracking-wide text-wrap">
-            <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
+            <UnderlineTitle>
               WEB3
               <br />
               GAMES & PAYMENT
-            </span>
+            </UnderlineTitle>
           </p>
 
           <ProjectImpact

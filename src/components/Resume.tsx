@@ -3,6 +3,7 @@
 import { MoveUp } from "lucide-react";
 import Link from "next/link";
 
+import { FlipHeading } from "@/components/headings";
 import { Button } from "@/components/ui/button";
 import { WORK_WITH_ME } from "@/content/impact";
 import { useFromLinkedIn } from "@/hooks/useFromLinkedIn";
@@ -32,14 +33,11 @@ export default function Resume() {
       >
         <div className="mt-15 hidden text-center text-5xl font-light tracking-wide lg:block">
           <div className="dark:text-foreground text-foreground">
-            <span className="perspective-500 group relative inline-block w-full cursor-col-resize text-left text-xl sm:text-right sm:text-5xl lg:text-6xl">
-              <span className="inline-block transition-transform duration-500 transform-3d group-hover:transform-[rotateY(180deg)]">
-                <span className="block backface-hidden">PROFESSIONAL</span>
-                <span className="absolute inset-0 flex transform-[rotateY(180deg)] items-center justify-center backface-hidden">
-                  EXPERIENCE
-                </span>
-              </span>
-            </span>
+            <FlipHeading
+              front="PROFESSIONAL"
+              back="EXPERIENCE"
+              className="text-left text-xl sm:text-right sm:text-5xl lg:text-6xl"
+            />
           </div>
         </div>
 

@@ -1,5 +1,6 @@
 import ArcadeEmbed from "@/components/ArcadeEmbed";
 import BounceToScrollDown from "@/components/BounceToScrollDown";
+import { UnderlineTitle } from "@/components/headings";
 import ProjectImpact from "@/components/ProjectImpact";
 import { PROJECT_IMPACT } from "@/content/impact";
 
@@ -12,9 +13,7 @@ export default function ProjectOne() {
       <div className="flex h-[90vh] flex-col items-center justify-center lg:flex-row">
         <div className="flex w-full flex-col items-center justify-center lg:w-2/5 lg:items-start">
           <p className="text-foreground/80 dark:text-foreground leading-tight font-light tracking-wide text-wrap">
-            <span className="relative inline-block text-3xl font-medium tracking-widest transition-all duration-200 after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-0 after:-translate-x-1/2 after:bg-current after:transition-all after:duration-200 after:ease-in-out after:content-[''] hover:-translate-y-0.5 hover:after:w-full sm:text-4xl">
-              Prediction Market
-            </span>
+            <UnderlineTitle>Prediction Market</UnderlineTitle>
           </p>
 
           <p className="mt-5 text-xl font-light tracking-widest">
