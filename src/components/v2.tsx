@@ -323,10 +323,10 @@ function Intro() {
         <div className="flex items-center justify-center lg:w-1/2">
           <div className="mx-16 hidden dark:block">
             <Image
-              src={`${basePath}/images/dark.png`}
+              src={`${basePath}/images/dark.webp`}
               width={380}
-              height={480}
-              alt={"dark"}
+              height={507}
+              alt="Illustrated portrait of Jacky"
               loading="eager"
               className="w-64 rounded-lg lg:w-95"
             />
@@ -334,10 +334,10 @@ function Intro() {
 
           <div className="mx-16 block dark:hidden">
             <Image
-              src={`${basePath}/images/light.png`}
+              src={`${basePath}/images/light.webp`}
               width={380}
-              height={480}
-              alt={"dark"}
+              height={507}
+              alt="Illustrated portrait of Jacky"
               loading="eager"
               className="w-64 rounded-lg lg:w-95"
             />
