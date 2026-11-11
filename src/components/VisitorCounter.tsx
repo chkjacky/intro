@@ -35,7 +35,7 @@ function markCounted() {
  * so reloads never add to the count.
  *
  * Firebase is loaded with dynamic imports after the page appears, so it isn't
- * part of the first page load. On any problem (not configured, offline,
+ * part of the first page load. On any problem (offline, network error,
  * blocked) it renders nothing rather than an error.
  */
 export default function VisitorCounter() {
@@ -48,9 +48,7 @@ export default function VisitorCounter() {
 
     (async () => {
       try {
-        const { getFirebase, isFirebaseConfigured } =
-          await import("@/lib/firebase");
-        if (!isFirebaseConfigured) throw new Error("Firebase not configured");
+        const { getFirebase } = await import("@/lib/firebase");
 
         const [
           { signInAnonymously },

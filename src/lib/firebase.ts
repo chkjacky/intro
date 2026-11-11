@@ -16,9 +16,6 @@ import { getFirestore, type Firestore } from "firebase/firestore/lite";
  * Public web config from Firebase console → Project settings → General →
  * Your apps. It isn't a secret: it ends up in the published page anyway, and
  * the Firestore security rules (`firestore.rules`) are what protect the data.
- *
- * Paste the values in below. Until then `isFirebaseConfigured` is false and
- * the visitor counter renders nothing.
  */
 const firebaseConfig: FirebaseOptions = {
   apiKey: "AIzaSyCgJCC-bUYadivncv1KSR1Ucv7ID6MnaJI",
@@ -26,13 +23,8 @@ const firebaseConfig: FirebaseOptions = {
   projectId: "intro-29ba5",
   storageBucket: "intro-29ba5.firebasestorage.app",
   messagingSenderId: "562304737291",
-  appId: "1:562304737291:web:3ebc4a99111e55200ba70e"
+  appId: "1:562304737291:web:3ebc4a99111e55200ba70e",
 };
-
-
-export const isFirebaseConfigured = Boolean(
-  firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.appId,
-);
 
 let instance: { auth: Auth; db: Firestore } | null = null;
 
