@@ -1,4 +1,4 @@
-import VolksmarketArcade from "@/components/arcades/VolksmarketArcade";
+import ArcadeEmbed from "@/components/ArcadeEmbed";
 import BounceToScrollDown from "@/components/BounceToScrollDown";
 import ProjectImpact from "@/components/ProjectImpact";
 import { PROJECT_IMPACT } from "@/content/impact";
@@ -46,7 +46,11 @@ export default function ProjectOne() {
         </div>
 
         <div className="flex w-full items-center sm:w-1/2 lg:w-3/5">
-          <VolksmarketArcade />
+          <ArcadeEmbed
+            id="Z0LEAEHXvsMmR0S1xnkb"
+            title="Volksmarket - A true prediction market"
+            ratio={47.5}
+          />
         </div>
       </div>
 

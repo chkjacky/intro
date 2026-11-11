@@ -1,6 +1,6 @@
 import { Mouse } from "lucide-react";
 
-import AIAgentArcade from "@/components/arcades/AIAgentArcade";
+import ArcadeEmbed from "@/components/ArcadeEmbed";
 import ProjectImpact from "@/components/ProjectImpact";
 import { Button } from "@/components/ui/button";
 import { PROJECT_IMPACT } from "@/content/impact";
@@ -49,7 +49,11 @@ export default function ProjectTwo() {
         </div>
 
         <div className="flex w-full items-center sm:w-1/2 lg:w-3/5">
-          <AIAgentArcade />
+          <ArcadeEmbed
+            id="z6d4XZBBlS8HlHmdVEsu"
+            title="AI Agent - Accounting Agent"
+            ratio={47.083333333333336}
+          />
         </div>
       </div>
 
