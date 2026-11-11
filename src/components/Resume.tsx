@@ -35,6 +35,17 @@ function useFromLinkedIn() {
  * END OF CLAUDE
  */
 
+const CERTS = [
+  {
+    n: 1,
+    href: "https://www.udemy.com/certificate/UC-08e8e3b3-5cd9-4411-8e0d-dd27bf64c369/",
+  },
+  {
+    n: 2,
+    href: "https://www.udemy.com/certificate/UC-511fc898-dd30-42a8-93cd-3d1f7bc3705c/",
+  },
+];
+
 export default function Resume() {
   const fromLinkedIn = useFromLinkedIn();
 
@@ -65,61 +76,34 @@ export default function Resume() {
 
         <div className="flex w-1/2 flex-col gap-y-2 md:w-1/3">
           <div className="flex w-full flex-col gap-y-2 lg:flex-row lg:gap-x-3">
-            <Button
-              variant="outline"
-              className="hover:bg-input/30 dark:hover:bg-input/30 border-chart-4 flex h-10 w-full items-center justify-center gap-x-1 rounded-lg border p-px transition-all duration-300 lg:h-16 lg:w-1/2"
-            >
-              <svg
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-foreground h-6 w-6 bg-transparent"
+            {CERTS.map(({ href, n }) => (
+              // asChild: the whole box is the link (a link inside a button is invalid HTML)
+              <Button
+                key={href}
+                asChild
+                variant="outline"
+                className="hover:bg-input/30 dark:hover:bg-input/30 border-chart-4 group flex h-10 w-full items-center justify-center gap-x-1 rounded-lg border p-px px-2 whitespace-normal transition-all duration-300 lg:h-16 lg:w-1/2"
               >
-                <title>Udemy</title>
-                <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
-              </svg>
+                <Link href={href} target="_blank" rel="noopener noreferrer">
+                  <svg
+                    role="img"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="fill-foreground h-6 w-6 bg-transparent"
+                  >
+                    <title>Udemy</title>
+                    <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
+                  </svg>
 
-              <Link
-                href="https://www.udemy.com/certificate/UC-08e8e3b3-5cd9-4411-8e0d-dd27bf64c369/"
-                passHref
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-link w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
-              >
-                <span className="hidden sm:block">
-                  Product Management Cert 1
-                </span>
-                <span className="sm:hidden">PM Cert (1)</span>
-              </Link>
-            </Button>
-
-            <Button
-              variant="outline"
-              className="hover:bg-input/30 dark:hover:bg-input/30 border-chart-4 flex h-10 w-full items-center justify-center gap-x-1 rounded-lg border p-px transition-all duration-300 lg:h-16 lg:w-1/2"
-            >
-              <svg
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                className="fill-foreground h-6 w-6 bg-transparent"
-              >
-                <title>Udemy</title>
-                <path d="M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z" />
-              </svg>
-
-              <Link
-                href="https://www.udemy.com/certificate/UC-511fc898-dd30-42a8-93cd-3d1f7bc3705c/"
-                passHref
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-link w-fit underline-offset-4 transition-all duration-300 hover:cursor-pointer hover:underline"
-              >
-                <span className="hidden sm:block">
-                  Product Management Cert 2
-                </span>
-                <span className="sm:hidden">PM Cert (2)</span>
-              </Link>
-            </Button>
+                  <span className="group-hover:text-link text-center leading-tight underline-offset-4 transition-all duration-300 group-hover:underline">
+                    <span className="hidden sm:block">
+                      Product Management Cert {n}
+                    </span>
+                    <span className="sm:hidden">PM Cert ({n})</span>
+                  </span>
+                </Link>
+              </Button>
+            ))}
           </div>
         </div>
 
