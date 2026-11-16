@@ -76,23 +76,44 @@ export default function ProjectImpact({
             <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
               Problem
             </dt>
-            <dd className="font-light">{impact.problem}</dd>
+            <dd className="text-justify font-light hyphens-auto">
+              {impact.problem}
+            </dd>
 
             <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
               Built
             </dt>
-            <dd className="font-light">{impact.built}</dd>
+            <dd className="text-justify font-light hyphens-auto">
+              {impact.built}
+            </dd>
 
             <dt className="text-foreground/95 pt-0.5 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
               Outcome
             </dt>
-            <dd className={`font-medium ${accentClassName}`}>
+            <dd
+              className={`text-justify font-medium hyphens-auto ${accentClassName}`}
+            >
               {impact.outcome}
             </dd>
           </dl>
 
-          <span className="text-foreground my-3 text-sm tracking-wider">
-            My Role <br /> {impact.role}
+          <span className={`my-3 flex flex-col gap-y-1.5 ${alignment}`}>
+            <span className="text-foreground/95 text-[0.6rem] font-bold tracking-[.2em] uppercase lg:text-[0.65rem]">
+              My Role
+            </span>
+            {/* one pill per role so a long role list wraps between roles, never mid-title */}
+            <span
+              className={`flex flex-wrap gap-1.5 ${align === "left" ? "justify-start" : "justify-center"}`}
+            >
+              {impact.role.split(" · ").map((r) => (
+                <span
+                  key={r}
+                  className="border-foreground/30 text-foreground rounded-full border px-2.5 py-0.5 text-xs tracking-wider whitespace-nowrap"
+                >
+                  {r}
+                </span>
+              ))}
+            </span>
           </span>
 
           <span className="text-foreground flex items-center text-[0.65rem] tracking-[.25em] uppercase">
