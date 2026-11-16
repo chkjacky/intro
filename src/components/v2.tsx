@@ -1,5 +1,6 @@
 import FeaturedProjects from "./sections/FeaturedProjects";
 import Intro from "./sections/Intro";
+import ProjectFive from "./sections/ProjectFive";
 import ProjectFour from "./sections/ProjectFour";
 import ProjectOne from "./sections/ProjectOne";
 import ProjectThree from "./sections/ProjectThree";
@@ -26,6 +27,8 @@ export default function V2() {
       <ProjectThree />
 
       <ProjectFour />
+
+      <ProjectFive />
     </main>
   );
 }

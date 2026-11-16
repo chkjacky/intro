@@ -110,6 +110,16 @@ export const PROJECT_IMPACT = {
     highlight: "In design",
     isUnreleasedProject: true,
   },
+  eventPlanner: {
+    problem:
+      "Planning an event means juggling guest lists, schedules and tasks across chats and spreadsheets.",
+    built:
+      "An app that manages guests, schedules and tasks for an event in one place.",
+    outcome: "Developing, launching soon",
+    role: "Founder · Fullstack Engineer · Product Manager",
+    highlight: "Sneak peek",
+    isUnreleasedProject: true,
+  },
 } satisfies Record<string, ProjectImpactCopy>;
 
 /** Resume: "How I work" steps, in order. Keep each detail to one short line */

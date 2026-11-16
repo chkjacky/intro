@@ -106,7 +106,10 @@ export default function ProjectFour() {
           </div>
         </div>
 
-        <BounceToScrollDown sectionName="Experience" sectionId="resume" />
+        <BounceToScrollDown
+          sectionName="Event Planner"
+          sectionId="feature-project-five"
+        />
       </div>
     </section>
   );
