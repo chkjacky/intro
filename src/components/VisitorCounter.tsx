@@ -20,6 +20,15 @@ function alreadyCounted() {
   }
 }
 
+/** The browser's IANA time zone, e.g. "Asia/Kuala_Lumpur"; undefined if unavailable */
+function timeZone() {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 function markCounted() {
   try {
     localStorage.setItem(STORAGE_KEY, "1");
@@ -30,8 +39,9 @@ function markCounted() {
 
 /**
  * "👀 1,234 visitors". Each browser gets an anonymous Firebase ID and, on its
- * first visit, creates `visitors/{uid}`; the number is how many such docs
- * exist. The rules in `firestore.rules` allow each ID one doc and no edits,
+ * first visit, creates `visitors/{uid}` holding a timestamp and the browser's
+ * time zone (to see visitor countries without storing IPs); the number is how
+ * many such docs exist. The rules in `firestore.rules` allow each ID one doc and no edits,
  * so reloads never add to the count.
  *
  * Firebase is loaded with dynamic imports after the page appears, so it isn't
@@ -65,8 +75,11 @@ export default function VisitorCounter() {
         // Count only real visits: never from `npm run dev`
         if (process.env.NODE_ENV === "production" && !alreadyCounted()) {
           try {
+            // Firestore rejects undefined values, so add tz only when known
+            const tz = timeZone();
             await setDoc(doc(db, "visitors", user.uid), {
               at: serverTimestamp(),
+              ...(tz && { tz }),
             });
           } catch (error) {
             // The doc already exists (rules forbid updates): already counted

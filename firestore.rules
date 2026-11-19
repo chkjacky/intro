@@ -4,14 +4,21 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /visitors/{uid} {
-      // Each anonymous user can create only their own doc, once, with only a
-      // server timestamp in it. No edits or deletes, so the total can't be faked.
+      // Each anonymous user can create only their own doc, once, with a server
+      // timestamp and an optional time zone. No edits or deletes, so the total
+      // can't be faked.
       allow create: if request.auth != null
                     && request.auth.uid == uid
-                    && request.resource.data.keys().hasOnly(['at'])
-                    && request.resource.data.at == request.time;
+                    && request.resource.data.keys().hasOnly(['at', 'tz'])
+                    && request.resource.data.at == request.time
+                    // Optional IANA time zone, e.g. "Asia/Kuala_Lumpur" or "Etc/GMT+8"
+                    && (!('tz' in request.resource.data)
+                        || (request.resource.data.tz is string
+                            && request.resource.data.tz.size() <= 64
+                            && request.resource.data.tz.matches('^[A-Za-z_]+(/[A-Za-z0-9_+-]+)*$')));
       allow update, delete: if false;
-      // count() needs list access. Docs hold only a timestamp, no personal data.
+      // count() needs list access. Docs hold only a timestamp and a time zone
+      // (no IP), nothing that identifies a person.
       allow get, list: if true;
     }
     // Everything else stays locked
